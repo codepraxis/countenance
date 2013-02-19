@@ -7,31 +7,29 @@
  *
  */
 
-// Window References
-WindowRef                   window;		// main window
-WindowRef                   window2;	// model list window
-WindowRef					window3;	// add model window
-WindowRef					window4;	// error adding model window
-WindowRef					window5;    // view model window
+WindowRef					window;			// main window
+WindowRef					window2;		// model list window
+WindowRef					window3;		// add model window
+WindowRef					window4;		// error adding model window
+WindowRef					window5;		// view model window
 
-WindowRef					gGroupListWindow; // group list window
-WindowRef					gAddGroupWindow; // add group window
-WindowRef					gEditGroupWindow; // edit group window
+WindowRef					gGroupListWindow;	// group list window
+WindowRef					gAddGroupWindow;	// add group window
+WindowRef					gEditGroupWindow;	// edit group window
 
-WindowRef					gNewTrialWindow; // new trial window
-WindowRef					gBatteryAWindow; // battery a window
-WindowRef					gBatteryAWindow1; // battery a rating1
-WindowRef					gBatteryAWindow2; // battery a rating2
-WindowRef					gBatteryAWindow3; // battery a rating3
-WindowRef					gBatteryAWindow4; // battery a rating4
+WindowRef					gNewTrialWindow; 	// new trial window
+WindowRef					gBatteryAWindow; 	// battery a window
+WindowRef					gBatteryAWindow1; 	// battery a rating1
+WindowRef					gBatteryAWindow2; 	// battery a rating2
+WindowRef					gBatteryAWindow3; 	// battery a rating3
+WindowRef					gBatteryAWindow4; 	// battery a rating4
 
 WindowRef					gTargetAlertWindow;
-WindowRef					gBatteryBPictureWindow;
+WindowRef					gBatteryBPictureWindow;	// battery b display window
 WindowRef					gBatteryBRatingWindow;
 
 WindowRef					gSurveyWindow;
 WindowRef					gBatteryCWindow;
-
 
 #define NextModel 'NXMD'
 #define NextModelB 'NXMB'
@@ -111,7 +109,6 @@ WindowRef					gBatteryCWindow;
 #define DeleteFromGroupButton 'dmfg'
 #define DoneWithEditGroup 'dweg'
 
-
 #define StartTrial1 'strt'
 #define EditModelList 'modl'
 #define AddModelToList 'addm'
@@ -175,7 +172,6 @@ WindowRef					gBatteryCWindow;
 #define viewsmileFieldID 610
 #define viewmirrorFieldSignature 'vw11'
 #define viewmirrorFieldID 611
-
 
 #define nameColumn 'nfld'
 #define raceColumn 'rfld'

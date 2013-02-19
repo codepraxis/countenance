@@ -61,30 +61,26 @@ static OSStatus        WindowEventHandler( EventHandlerCallRef inCaller, EventRe
 
 static IBNibRef        sNibRef;
 
-//--------------------------------------------------------------------------------------------
-int main(int argc, char* argv[])
-{
-    OSStatus                    err;
+int main(int argc, char* argv[]) {
+	OSStatus					err;
 	MenuRef						menu;
-	MenuItemIndex				item;
+	MenuItemIndex					item;
 	EventRef					event;
 	CFStringRef					titleStr = CFSTR("Checkbox");
-    static const EventTypeSpec    kAppEvents[] =
-    {
-        { kEventClassCommand, kEventCommandProcess }
-    };
 
-    // Create a Nib reference, passing the name of the nib file (without the .nib extension).
-    // CreateNibReference only searches into the application bundle.
-    err = CreateNibReference( CFSTR("main"), &sNibRef );
-    require_noerr( err, CantGetNibRef );
+	static const EventTypeSpec			kAppEvents[] = {{ kEventClassCommand, kEventCommandProcess }};
+
+	// Create a Nib reference, passing the name of the nib file (without the .nib extension).
+	// CreateNibReference only searches into the application bundle.
+	err = CreateNibReference( CFSTR("main"), &sNibRef );
+	require_noerr( err, CantGetNibRef );
     
-    // Once the nib reference is created, set the menu bar. "MainMenu" is the name of the menu bar
-    // object. This name is set in InterfaceBuilder when the nib is created.
-    err = SetMenuBarFromNib( sNibRef, CFSTR("MenuBar") );
-    require_noerr( err, CantSetMenuBar );
+	// Once the nib reference is created, set the menu bar. "MainMenu" is the name of the menu bar
+	// object. This name is set in InterfaceBuilder when the nib is created.
+	err = SetMenuBarFromNib( sNibRef, CFSTR("MenuBar") );
+	require_noerr( err, CantSetMenuBar );
 
-/*-------- Menu Item Views in Mac OS X 10.5 --------*/
+	/*-------- Menu Item Views in Mac OS X 10.5 --------*/
     
 	// find the Page Setup menu item
 	GetIndMenuItemWithCommandID( NULL, kHICommandPageSetup, 1, &menu, &item );
@@ -103,29 +99,29 @@ int main(int argc, char* argv[])
 	// the menu retains the init event, so we can release it now
 	ReleaseEvent( event );
 
-/*-------- End Menu Item Views --------*/
+	/*-------- End Menu Item Views --------*/
     
-    // Install our handler for common commands on the application target
-    InstallApplicationEventHandler( NewEventHandlerUPP( AppEventHandler ),
+	// Install our handler for common commands on the application target
+	InstallApplicationEventHandler( NewEventHandlerUPP( AppEventHandler ),
                                     GetEventTypeCount( kAppEvents ), kAppEvents,
                                     0, NULL );
     
-    // Create a new window. A full-fledged application would do this from an AppleEvent handler
-    // for kAEOpenApplication.
-    HandleNew();
+	// Create a new window. A full-fledged application would do this from an AppleEvent handler
+	// for kAEOpenApplication.
+	HandleNew();
     
-    // Run the event loop
-    RunApplicationEventLoop();
+	// Run the event loop
+	RunApplicationEventLoop();
 
-CantSetMenuBar:
-CantGetNibRef:
-    return err;
+	CantSetMenuBar:
+	CantGetNibRef:
+    		return err;
 }
 
 //--------------------------------------------------------------------------------------------
 static OSStatus
-AppEventHandler( EventHandlerCallRef inCaller, EventRef inEvent, void* inRefcon )
-{
+AppEventHandler( EventHandlerCallRef inCaller, EventRef inEvent, void* inRefcon ) {
+    
     OSStatus    result = eventNotHandledErr;
     
     switch ( GetEventClass( inEvent ) )
@@ -166,40 +162,38 @@ DEFINE_ONE_SHOT_HANDLER_GETTER( WindowEventHandler )
 
 //--------------------------------------------------------------------------------------------
 static OSStatus
-HandleNew()
-{
-    OSStatus                    err;
-    WindowRef                    window;
-    static const EventTypeSpec    kWindowEvents[] =
-    {
-        { kEventClassCommand, kEventCommandProcess }
-    };
-    
-    // Create a window. "MainWindow" is the name of the window object. This name is set in 
-    // InterfaceBuilder when the nib is created.
-    err = CreateWindowFromNib( sNibRef, CFSTR("MainWindow"), &window );
-    require_noerr( err, CantCreateWindow );
+HandleNew() {
+	
+	OSStatus					err;
+	WindowRef					window;
 
-    // Install a command handler on the window. We don't use this handler yet, but nearly all
-    // Carbon apps will need to handle commands, so this saves everyone a little typing.
-    InstallWindowEventHandler( window, GetWindowEventHandlerUPP(),
+	static const EventTypeSpec			kWindowEvents[] = {{ kEventClassCommand, kEventCommandProcess }};
+    
+	// Create a window. "MainWindow" is the name of the window object. This name is set in 
+	// InterfaceBuilder when the nib is created.
+	err = CreateWindowFromNib( sNibRef, CFSTR("MainWindow"), &window );
+	require_noerr( err, CantCreateWindow );
+
+	// Install a command handler on the window. We don't use this handler yet, but nearly all
+	// Carbon apps will need to handle commands, so this saves everyone a little typing.
+	InstallWindowEventHandler( window, GetWindowEventHandlerUPP(),
                                GetEventTypeCount( kWindowEvents ), kWindowEvents,
                                window, NULL );
     
-    // Position new windows in a staggered arrangement on the main screen
-    RepositionWindow( window, NULL, kWindowCascadeOnMainScreen );
+	// Position new windows in a staggered arrangement on the main screen
+	RepositionWindow( window, NULL, kWindowCascadeOnMainScreen );
     
-    // The window was created hidden, so show it
-    ShowWindow( window );
+	// The window was created hidden, so show it
+	ShowWindow( window );
     
-CantCreateWindow:
-    return err;
+	CantCreateWindow:
+		return err;
 }
 
 //--------------------------------------------------------------------------------------------
 static OSStatus
-WindowEventHandler( EventHandlerCallRef inCaller, EventRef inEvent, void* inRefcon )
-{
+WindowEventHandler( EventHandlerCallRef inCaller, EventRef inEvent, void* inRefcon ) {
+
     OSStatus    err = eventNotHandledErr;
     
     switch ( GetEventClass( inEvent ) )

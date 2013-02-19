@@ -21,18 +21,15 @@ pascal bool DeleteModelCommandHandler();
 pascal void CancelModelCommandHandler();
 pascal void resetAddModelDialog();
 pascal bool GetPictureNameCommandHandler();
-pascal void ModelListDataCallback (ControlRef, DataBrowserItemID, DataBrowserPropertyID, DataBrowserItemDataRef,
-								   Boolean );
+pascal void ModelListDataCallback (ControlRef, DataBrowserItemID, DataBrowserPropertyID, DataBrowserItemDataRef, Boolean );
 pascal void InitializeModelDataBrowser ();
 pascal void ClearModelDataBrowser();
 
-pascal void ModelListGroupDataCallback (ControlRef, DataBrowserItemID, DataBrowserPropertyID, DataBrowserItemDataRef,
-								   Boolean );
+pascal void ModelListGroupDataCallback (ControlRef, DataBrowserItemID, DataBrowserPropertyID, DataBrowserItemDataRef, Boolean );
 pascal void InitializeModelGroupDataBrowser ();
 pascal void ClearModelGroupDataBrowser();
 
-pascal void GroupMemberDataCallback (ControlRef, DataBrowserItemID, DataBrowserPropertyID, DataBrowserItemDataRef,
-										Boolean );
+pascal void GroupMemberDataCallback (ControlRef, DataBrowserItemID, DataBrowserPropertyID, DataBrowserItemDataRef, Boolean );
 pascal void InitializeGroupMemberDataBrowser ();
 pascal void ClearGroupMemberDataBrowser();
 
@@ -68,7 +65,7 @@ pascal void ResetBatteryCWindow();
 
 pascal void ResetBatteryCWindow(){
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    healthField;
 	ControlHandle    dareField;
@@ -79,7 +76,7 @@ pascal void ResetBatteryCWindow(){
 	ControlHandle    hireField;
 	ControlHandle    ageboxField;
 	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  healthFieldControlID = { BCHealthySignature, 
 	BCHealthyID }; 
@@ -105,7 +102,7 @@ pascal void ResetBatteryCWindow(){
 	ControlID  ageboxFieldControlID = { BCAgeSignature, 
 	BCAgeID }; 
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (gBatteryCWindow, &healthFieldControlID,               
 					&healthField ); 
@@ -149,12 +146,11 @@ pascal void ResetBatteryCWindow(){
 				   sizeof (CFStringRef), &blank);
 	
 	CFRelease(blank);
-	
 }
 
 pascal bool BatteryCHandler(){
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    healthField;
 	ControlHandle    dareField;
@@ -165,7 +161,7 @@ pascal bool BatteryCHandler(){
 	ControlHandle    hireField;
 	ControlHandle    ageboxField;
 	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  healthFieldControlID = { BCHealthySignature, 
 	BCHealthyID }; 
@@ -191,7 +187,7 @@ pascal bool BatteryCHandler(){
 	ControlID  ageboxFieldControlID = { BCAgeSignature, 
 	BCAgeID }; 
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (gBatteryCWindow, &healthFieldControlID,               
 					&healthField ); 
@@ -239,13 +235,10 @@ pascal bool BatteryCHandler(){
 	GetControlData( ageboxField, 0, kControlEditTextCFStringTag,    
 				   sizeof (CFStringRef), &ageBox, NULL);
 	
-	
-	
 	// Copy age info
 	CFStringRef setAge = CFStringCreateCopy(NULL, ageBox);
 		
 	CFStringRef blank = CFSTR("");
-	
 	
 	// Check for No Age
 	if(CFStringCompare(ageBox, blank, 0)==0)
@@ -255,7 +248,6 @@ pascal bool BatteryCHandler(){
 	if(health == 0 || dare == 0 || attentive == 0 || sociable == 0 || caring == 0 || stable == 0 || hire == 0)
 		return false;
 	
-	
 	// Save User information
 	currentTrial.SetBatteryCData(health, dare, attentive, sociable, caring, stable, hire, ageBox);
 	
@@ -263,16 +255,13 @@ pascal bool BatteryCHandler(){
 	CFRelease(ageBox);	
 	
 	return true;
-	
 }
 
 pascal void DrawBatteryCCurrentModel(){
 	
-	
 	// Get current model's image name
 	CFStringRef imageName;
 	imageName = masterGroupList.groupList[currentTrial.groupID].modelList[currentTrial.currentModel].imageName;
-	
 	
 	// Convert CFStringRef to URL
 	CFURLRef filenameURL = CFURLCreateWithString(kCFAllocatorDefault,imageName, NULL);
@@ -281,8 +270,7 @@ pascal void DrawBatteryCCurrentModel(){
 	// load the image
 	CGImageRef imagefile;
 	CGDataProviderRef provider = CGDataProviderCreateWithURL( filenameURL );
-	imagefile = CGImageCreateWithJPEGDataProvider( provider,
-												  NULL, false,  kCGRenderingIntentDefault );
+	imagefile = CGImageCreateWithJPEGDataProvider( provider, NULL, false,  kCGRenderingIntentDefault );
 	
 	// find the control
 	const HIViewID kImageViewID = {'BCVW', 910};
@@ -292,24 +280,23 @@ pascal void DrawBatteryCCurrentModel(){
 	
 	// set the image into the view.
 	HIImageViewSetImage( imageViewRef, imagefile ); // retains the image.
-	
+
 	HIViewSetNeedsDisplay(imageViewRef, TRUE);
-	
 }
 
 
 pascal bool BatteryAHandler1(){
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    compField;
 	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  compFieldControlID = { CompetenceSignature, 
 	CompetenceID }; 
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (gBatteryAWindow1, &compFieldControlID,               
 					&compField ); 
@@ -324,21 +311,20 @@ pascal bool BatteryAHandler1(){
 	}
 	
 	return false;
-	
 }
 
 pascal bool BatteryAHandler2(){
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    trustField;
 	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  trustFieldControlID = { TrustSignature, 
 	TrustID }; 
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (gBatteryAWindow2, &trustFieldControlID,               
 					&trustField ); 
@@ -353,21 +339,20 @@ pascal bool BatteryAHandler2(){
 	}
 	
 	return false;
-	
 }
 
 pascal bool BatteryAHandler3(){
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    likeField;
 	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  likeFieldControlID = { LikeSignature, 
 	LikeID }; 
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (gBatteryAWindow3, &likeFieldControlID,               
 					&likeField ); 
@@ -382,24 +367,22 @@ pascal bool BatteryAHandler3(){
 	}
 	
 	return false;
-	
 }
 
 pascal bool BatteryAHandler4(){
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    attrField;
 	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  attrFieldControlID = { AttractiveSignature, 
 	AttractiveID }; 
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
-	GetControlByID (gBatteryAWindow4, &attrFieldControlID,               
-					&attrField ); 
+	GetControlByID (gBatteryAWindow4, &attrFieldControlID, &attrField ); 
 	
 	int attr = 0;
 	
@@ -411,56 +394,39 @@ pascal bool BatteryAHandler4(){
 	}
 	
 	return false;
-	
 }
 
 pascal void ResetAllBatteryAWindows(){
 
-// Declare ControlHandles
-// ControlHandles correspond to different window elements
-ControlHandle    compField;
-ControlHandle	 likeField;
-ControlHandle	 attrField;
-ControlHandle	 trustField;
+	// ControlHandle Declarations
+	// ControlHandles correspond to different window elements
+	ControlHandle    compField;
+	ControlHandle	 likeField;
+	ControlHandle	 attrField;
+	ControlHandle	 trustField;
 
+	// ControlID Declarations
+	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
+	ControlID  compFieldControlID = { CompetenceSignature, CompetenceID }; 
+	ControlID  likeFieldControlID = { LikeSignature, LikeID }; 
+	ControlID  attrFieldControlID = { AttractiveSignature, AttractiveID }; 
+	ControlID  trustFieldControlID = { TrustSignature, TrustID }; 
 
-// Create ControlIDs
-// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
-ControlID  compFieldControlID = { CompetenceSignature, 
-CompetenceID }; 
+	// Assign ControlHandles
+	// GetControlByID creates the ControlHandles based on the ControlIDs
+	GetControlByID (gBatteryAWindow1, &compFieldControlID, &compField ); 
 
-ControlID  likeFieldControlID = { LikeSignature, 
-LikeID }; 
+	GetControlByID (gBatteryAWindow3, &likeFieldControlID, &likeField ); 
 
-ControlID  attrFieldControlID = { AttractiveSignature, 
-AttractiveID }; 
+	GetControlByID (gBatteryAWindow4, &attrFieldControlID, &attrField ); 
 
-ControlID  trustFieldControlID = { TrustSignature, 
-TrustID }; 
+	GetControlByID (gBatteryAWindow2, &trustFieldControlID, &trustField ); 
 
-
-// 1 Assign ControlHandles
-// GetControlByID creates the ControlHandles based on the ControlIDs
-GetControlByID (gBatteryAWindow1, &compFieldControlID,               
-				&compField ); 
-
-GetControlByID (gBatteryAWindow3, &likeFieldControlID,               
-				&likeField ); 
-
-GetControlByID (gBatteryAWindow4, &attrFieldControlID,               
-				&attrField ); 
-
-GetControlByID (gBatteryAWindow2, &trustFieldControlID,               
-				&trustField ); 
-
-SetControl32BitValue(compField, 0);
-SetControl32BitValue(likeField, 0);
-SetControl32BitValue(attrField, 0);
-SetControl32BitValue(trustField, 0);
-
+	SetControl32BitValue(compField, 0);
+	SetControl32BitValue(likeField, 0);
+	SetControl32BitValue(attrField, 0);
+	SetControl32BitValue(trustField, 0);
 }
-
-
 
 pascal bool SurveyCommandHandler(){
 	
@@ -469,7 +435,7 @@ pascal bool SurveyCommandHandler(){
 	CFStringRef userOrientation;
 	CFStringRef userKids;
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    maritalField;
 	ControlHandle	 incomeField;
@@ -477,7 +443,7 @@ pascal bool SurveyCommandHandler(){
 	ControlHandle	 kidsField;
 	
 	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  maritalFieldControlID = { SurveyMaritalSignature, 
 	SurveyMaritalID }; 
@@ -493,7 +459,7 @@ pascal bool SurveyCommandHandler(){
 	
 
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (gSurveyWindow, &maritalFieldControlID,               
 					&maritalField ); 
@@ -558,12 +524,11 @@ pascal bool SurveyCommandHandler(){
 	CFRelease(userKids);
 	
 	return true;
-	
 }
 
 pascal void ClearSurveyWindow(){
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    maritalField;
 	ControlHandle	 incomeField;
@@ -571,7 +536,7 @@ pascal void ClearSurveyWindow(){
 	ControlHandle	 kidsField;
 	
 	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  maritalFieldControlID = { SurveyMaritalSignature, 
 	SurveyMaritalID }; 
@@ -586,7 +551,7 @@ pascal void ClearSurveyWindow(){
 	SurveyChildrenID }; 
 	
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (gSurveyWindow, &maritalFieldControlID,               
 					&maritalField ); 
@@ -618,15 +583,13 @@ pascal void ClearSurveyWindow(){
 	
 	
 	CFRelease(blank);
-	
 }
 
-pascal bool AddModelCommandHandler () 
-{ 
+pascal bool AddModelCommandHandler () { 
 	
 	bool outcome = true;
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    nameField;
 	ControlHandle	 raceField;
@@ -641,8 +604,7 @@ pascal bool AddModelCommandHandler ()
 	ControlHandle    smileField;
 	ControlHandle    mirrorField;
 	
-	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  nameFieldControlID = { nameFieldSignature, 
 	nameFieldID }; 
@@ -680,7 +642,6 @@ pascal bool AddModelCommandHandler ()
 	ControlID  mirrorFieldControlID = { mirrorFieldSignature, 
 	mirrorFieldID }; 
 	
-	
 	CFStringRef nameInput;
 	CFStringRef picInput;
 	CFStringRef raceInput;
@@ -694,7 +655,7 @@ pascal bool AddModelCommandHandler ()
 	CFStringRef smileInput;
 	CFStringRef mirrorInput;
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (window3, &nameFieldControlID,               
 					&nameField ); 
@@ -732,8 +693,7 @@ pascal bool AddModelCommandHandler ()
 	GetControlByID (window3, &mirrorFieldControlID,               
 					&mirrorField ); 
 	
-	
-	
+
 	// Get Data from Input Field
 	GetControlData( nameField, 0, kControlEditTextCFStringTag,    
 				   sizeof (CFStringRef), &nameInput, NULL); 
@@ -822,7 +782,6 @@ pascal bool AddModelCommandHandler ()
 		masterModelList.AddModel(0, setName, setPic, setMakeup, setRace, setAge, setSegment, setMarital,
 								setIncome, setOrientation, setHair, setSmile, setMirror);
 		
-		
 		printf("There are now %d models in the database.\n", masterModelList.ReturnTotalModels());
 		
 		printf("flag 1\n");
@@ -854,11 +813,9 @@ pascal bool AddModelCommandHandler ()
 	return outcome;
 } 
 
-pascal void resetAddModelDialog()
-{
+pascal void resetAddModelDialog() {
 	
-	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    nameField;
 	ControlHandle	 raceField;
@@ -872,9 +829,8 @@ pascal void resetAddModelDialog()
 	ControlHandle    hairField;
 	ControlHandle    smileField;
 	ControlHandle    mirrorField;
-	printf("flag1ccc");
 	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  nameFieldControlID = { nameFieldSignature, 
 	nameFieldID }; 
@@ -911,11 +867,11 @@ pascal void resetAddModelDialog()
 	
 	ControlID  mirrorFieldControlID = { mirrorFieldSignature, 
 	mirrorFieldID }; 
-	printf("flag1ccd");
+
 	CFStringRef blank = CFSTR("");
 	CFStringRef select = CFSTR("Select");
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (window3, &nameFieldControlID,               
 					&nameField ); 
@@ -952,12 +908,9 @@ pascal void resetAddModelDialog()
 	
 	GetControlByID (window3, &mirrorFieldControlID,               
 					&mirrorField ); 
-	printf("flag1dcc");
 	
 	// Reset Image Display
 	SetImage(CFSTR("blank.png"));
-	
-	
 	
 	// Reset fields
 	SetControlData( nameField, 0, kControlEditTextCFStringTag,  
@@ -987,13 +940,9 @@ pascal void resetAddModelDialog()
 	
 	CFRelease(blank);
 	CFRelease(select);
-	
-	printf("flag1z\n");
-
 }
 	
-CGImageRef LoadImage( CFStringRef inName )
-{
+CGImageRef LoadImage( CFStringRef inName ) {
 	CGImageRef image = NULL;
 	
 	CFBundleRef appBundle = CFBundleGetMainBundle();
@@ -1005,8 +954,7 @@ CGImageRef LoadImage( CFStringRef inName )
 			CGDataProviderRef provider = CGDataProviderCreateWithURL( url );
 			if (provider != NULL)
 			{
-				image = CGImageCreateWithPNGDataProvider( provider,
-														 NULL, false,  kCGRenderingIntentDefault );
+				image = CGImageCreateWithPNGDataProvider( provider, NULL, false,  kCGRenderingIntentDefault );
 				CGDataProviderRelease( provider );
 			}
 			CFRelease( url );
@@ -1014,15 +962,14 @@ CGImageRef LoadImage( CFStringRef inName )
 	}
 	return image;
 }
-//-----------------------------------------------------------------------
-OSStatus SetImage(CFStringRef strvalue)
-{
+
+OSStatus SetImage(CFStringRef strvalue) {
+
 	const HIViewID kImageViewID = {'pict', 130};
 	
 	// find the control
 	HIViewRef imageViewRef = NULL;
-	OSStatus status = HIViewFindByID(HIViewGetRoot(window3), 
-									 kImageViewID, &imageViewRef);
+	OSStatus status = HIViewFindByID(HIViewGetRoot(window3), kImageViewID, &imageViewRef);
 	verify_noerr(status);
 	
 	// load the image
@@ -1038,18 +985,15 @@ OSStatus SetImage(CFStringRef strvalue)
 	return status;
 }
 	
-	
-	
+pascal bool DeleteModelCommandHandler() {
 
-pascal bool DeleteModelCommandHandler()
-{	
 	bool outcome = true;
 	
 	// Get table info
-	const       ControlID  dbControlID  = { 'SLST', 0 };// 1
-    ControlRef  dbControl;
+	const       ControlID  dbControlID  = { 'SLST', 0 };
+	ControlRef  dbControl;
 	
-    GetControlByID (window2, &dbControlID, &dbControl);  // 2
+	GetControlByID (window2, &dbControlID, &dbControl);
 	
 	Handle selectedID = ::NewHandle(0);
 	ItemCount size;
@@ -1070,10 +1014,10 @@ pascal bool DeleteModelCommandHandler()
 		DialogRef theItem;
 		DialogItemIndex itemIndex;
 		
-		CreateStandardAlert(kAlertCautionAlert, // 1
-						   CFSTR("No Model Selected.\n"), // 2
+		CreateStandardAlert(kAlertCautionAlert,  
+						   CFSTR("No Model Selected.\n"),  
 						   CFSTR("Please select a model to delete.\n"),
-						   NULL, &theItem);// 3
+						   NULL, &theItem); 
 		
 		RunStandardAlert (theItem, NULL, &itemIndex);
 		
@@ -1101,10 +1045,10 @@ pascal bool DeleteModelCommandHandler()
 		kAlertStdAlertCancelButton, kWindowAlertPositionParentWindowScreen,
 	NULL};
 	
-	CreateStandardAlert(kAlertCautionAlert, // 1
-						removename, // 2
+	CreateStandardAlert(kAlertCautionAlert,
+						removename,
 						CFSTR("Are you sure you want to remove this model?"),
-						&params, &theItem);// 3
+						&params, &theItem);
 	
 	RunStandardAlert (theItem, NULL, &itemIndex); 
 	
@@ -1128,20 +1072,16 @@ pascal bool DeleteModelCommandHandler()
 	DisposeHandle(selectedID);
 	
 	return outcome;
-	
 }
 
-pascal void CancelModelCommandHandler () 
-{ 	
+pascal void CancelModelCommandHandler () { 	
 	
 	resetAddModelDialog();
-	
 } 
 
 // Gets picture name from Open File Dialog
 // Sets Picture field of Add Model Dialog to picture path
-pascal bool GetPictureNameCommandHandler()
-{
+pascal bool GetPictureNameCommandHandler() {
 	
 	ControlHandle    pictureField;
 	
@@ -1178,14 +1118,11 @@ pascal bool GetPictureNameCommandHandler()
 	// Create the dialog
 	status = NavCreateGetFileDialog(&dialogOptions, hTypeList, NULL, NULL, NULL, NULL, &dialog);
 
-	
 	// Show it
 	status = NavDialogRun(dialog);
-
 	
 	// Get the reply
 	status = NavDialogGetReply(dialog, &replyRecord);
-
 	
 	// If the user clicked "Cancel", just bail
 	if ( status == userCanceledErr )
@@ -1194,53 +1131,33 @@ pascal bool GetPictureNameCommandHandler()
 	// Get the file
 	status = AEGetNthPtr(&(replyRecord.selection), 1, typeFSRef, NULL, NULL, &fileAsFSRef, sizeof(FSRef), NULL);
 
-	
 	// Convert it to a CFURL
 	fileAsCFURLRef = CFURLCreateFromFSRef(NULL, &fileAsFSRef);
 	
-	CFURLRef output= CFURLGetBaseURL (
-							  fileAsCFURLRef
-	);
+	CFURLRef output= CFURLGetBaseURL(fileAsCFURLRef);
 	
-	printf("YO!\n");
 	CFShow(output);
 	
 	// Convert it to a string
 	filename = CFURLCopyPath(fileAsCFURLRef);
-	
-	CFMutableStringRef filename2 = CFStringCreateMutableCopy (
-												  kCFAllocatorDefault,
-												  0,
-															  filename);
-	
+	CFMutableStringRef filename2 = CFStringCreateMutableCopy (kCFAllocatorDefault, 0, filename);
 	CFStringRef newfile = CFSTR("file://localhost");
-	CFMutableStringRef prefix = CFStringCreateMutableCopy (
-															  kCFAllocatorDefault,
-															  0,
-															  newfile);
+	CFMutableStringRef prefix = CFStringCreateMutableCopy (kCFAllocatorDefault, 0, newfile);
 	CFStringAppend(prefix, filename2);
-	
-	
 	
 	// load the image
 	CGImageRef imagefile;
 	CGDataProviderRef provider = CGDataProviderCreateWithURL( fileAsCFURLRef );
-	imagefile = CGImageCreateWithJPEGDataProvider( provider,
-										 NULL, false,  kCGRenderingIntentDefault );
+	imagefile = CGImageCreateWithJPEGDataProvider( provider, NULL, false,  kCGRenderingIntentDefault );
 	
 	// find the control
 	const HIViewID kImageViewID = {'pict', 130};
 	HIViewRef imageViewRef = NULL;
-	HIViewFindByID(HIViewGetRoot(window3), 
-								 kImageViewID, &imageViewRef);
+	HIViewFindByID(HIViewGetRoot(window3), kImageViewID, &imageViewRef);
 	
 	// set the image into the view.
-	status = HIImageViewSetImage( imageViewRef, imagefile ); // retains the image.
+	status = HIImageViewSetImage( imageViewRef, imagefile );
 
-	
-	
-	
-	
 	// Sets text field to value of string
 	SetControlData( pictureField, 0, kControlEditTextCFStringTag, 
 				   sizeof (CFStringRef), &prefix); 
@@ -1257,126 +1174,99 @@ pascal bool GetPictureNameCommandHandler()
 	DrawOneControl (pictureField);  
 	
 	return true;
-	
 }
 
-pascal void ModelListDataCallback (ControlRef browser,
-							DataBrowserItemID itemID,
-							DataBrowserPropertyID property,
-							DataBrowserItemDataRef itemData,
-							Boolean changeValue)
-{
-	// change made here
+pascal void ModelListDataCallback (ControlRef browser, DataBrowserItemID itemID, DataBrowserPropertyID property, DataBrowserItemDataRef itemData, Boolean changeValue) {
+
 	long newItemID = itemID;
-    int dataIndex = newItemID - 1;
+	int dataIndex = newItemID - 1;
 	CFOptionFlags casechk;
-				  casechk= kCFCompareCaseInsensitive;
+	casechk= kCFCompareCaseInsensitive;
 	
-	if (!changeValue) switch (property)
-	{
-        case nameColumn:	
-			
+	if (!changeValue) switch (property) {
+        	case nameColumn:	
 			if(dataIndex<masterModelList.modelList.size()){
-				SetDataBrowserItemDataText (itemData,
-										masterModelList.modelList[dataIndex].modelName); // 2
+				SetDataBrowserItemDataText (itemData, masterModelList.modelList[dataIndex].modelName);
 				masterModelList.modelList[dataIndex].tableID = newItemID;
 			}
+            		break;
 			
-            break;
-			
-			
-        case raceColumn:	
-			
+        	case raceColumn:	
 			if(dataIndex<masterModelList.modelList.size())
-				SetDataBrowserItemDataText (itemData,
-											masterModelList.modelList[dataIndex].race);
-            break;
+				SetDataBrowserItemDataText (itemData, masterModelList.modelList[dataIndex].race);
+            		break;
 			
-			
-        case ageColumn:	
-			
+		case ageColumn:	
 			if(dataIndex<masterModelList.modelList.size())
-				SetDataBrowserItemDataText (itemData,
-											masterModelList.modelList[dataIndex].age);            
+				SetDataBrowserItemDataText (itemData, masterModelList.modelList[dataIndex].age);            
 			break;
 			
-			
-        case makeupColumn:	
-			
+        	case makeupColumn:	
 			if(dataIndex<masterModelList.modelList.size())
-				SetDataBrowserItemDataText (itemData,
-											masterModelList.modelList[dataIndex].makeupType);
-            break;
+				SetDataBrowserItemDataText (itemData, masterModelList.modelList[dataIndex].makeupType);
+			break;
 			
-			
-        default:
-            break;
+		default:
+            		break;
     }
-	
-	
 }
 
-pascal void InitializeModelDataBrowser ()
-{
-    const       ControlID  dbControlID  = { 'SLST', 0 };// 1
-    SInt32      numRows;
-    ControlRef  dbControl;
-    DataBrowserCallbacks  dbCallbacks;
+pascal void InitializeModelDataBrowser() {
+
+	const       ControlID  dbControlID  = { 'SLST', 0 };
+	SInt32      numRows;
+	ControlRef  dbControl;
+	DataBrowserCallbacks  dbCallbacks;
 	
-    GetControlByID (window2, &dbControlID, &dbControl);  // 2
+	GetControlByID (window2, &dbControlID, &dbControl);
 	
-    dbCallbacks.version = kDataBrowserLatestCallbacks;// 3
-    InitDataBrowserCallbacks (&dbCallbacks);// 4
+	dbCallbacks.version = kDataBrowserLatestCallbacks;
+	InitDataBrowserCallbacks (&dbCallbacks);
 	
-    dbCallbacks.u.v1.itemDataCallback =
+	dbCallbacks.u.v1.itemDataCallback =
 	NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
-							  ModelListDataCallback);// 5
+							  ModelListDataCallback);
 	
-    SetDataBrowserCallbacks(dbControl, &dbCallbacks);// 6
+	SetDataBrowserCallbacks(dbControl, &dbCallbacks);
 	
-    SetAutomaticControlDragTrackingEnabledForWindow (window2, true);// 7
+	SetAutomaticControlDragTrackingEnabledForWindow (window2, true);
 	
 	printf("POPULATING LIST.\n");
-    numRows = masterModelList.ReturnTotalModels();
-    AddDataBrowserItems (dbControl, kDataBrowserNoItem, numRows,
-								  NULL, kDataBrowserItemNoProperty );// 9
-	
-	
+	numRows = masterModelList.ReturnTotalModels();
+	AddDataBrowserItems (dbControl, kDataBrowserNoItem, numRows, NULL, kDataBrowserItemNoProperty );
 }
 
-pascal void ClearModelDataBrowser(){
+pascal void ClearModelDataBrowser() {
 	
-	const       ControlID  dbControlID  = { 'SLST', 0 };// 1
-    ControlRef  dbControl;
-    DataBrowserCallbacks  dbCallbacks;
+	const       ControlID  dbControlID  = { 'SLST', 0 };
+	ControlRef  dbControl;
+	DataBrowserCallbacks  dbCallbacks;
 	
-    GetControlByID (window2, &dbControlID, &dbControl);  // 2
+	GetControlByID (window2, &dbControlID, &dbControl);
 	
-    dbCallbacks.version = kDataBrowserLatestCallbacks;// 3
-    InitDataBrowserCallbacks (&dbCallbacks);// 4
+	dbCallbacks.version = kDataBrowserLatestCallbacks;
+	InitDataBrowserCallbacks (&dbCallbacks);
 	
-    dbCallbacks.u.v1.itemDataCallback =
+	dbCallbacks.u.v1.itemDataCallback =
 	NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
-							  ModelListDataCallback);// 5
+							  ModelListDataCallback);
 	
-    SetDataBrowserCallbacks(dbControl, &dbCallbacks);// 6
+	SetDataBrowserCallbacks(dbControl, &dbCallbacks);
 	
-    SetAutomaticControlDragTrackingEnabledForWindow (window2, true);// 7
+	SetAutomaticControlDragTrackingEnabledForWindow (window2, true);
 		
 	RemoveDataBrowserItems (dbControl, kDataBrowserNoItem, 0,NULL, kDataBrowserItemNoProperty);
-	
 }
 
-pascal bool ViewModelCommandHandler()
-{	
+pascal bool ViewModelCommandHandler() {	
 	
 	bool outcome = true;
 	
 	// Get table info
-	const       ControlID  dbControlID  = { 'SLST', 0 };// 1
-    ControlRef  dbControl;
+	const       ControlID  dbControlID  = { 'SLST', 0 }; 
+	ControlRef  dbControl;
 	
-    GetControlByID (window2, &dbControlID, &dbControl);  // 2
+	GetControlByID (window2, &dbControlID, &dbControl);   
 	
 	Handle selectedID = ::NewHandle(0);
 	ItemCount size;
@@ -1397,10 +1287,10 @@ pascal bool ViewModelCommandHandler()
 		DialogRef theItem;
 		DialogItemIndex itemIndex;
 		
-		CreateStandardAlert(kAlertCautionAlert, // 1
-							CFSTR("No Model Selected.\n"), // 2
+		CreateStandardAlert(kAlertCautionAlert, 
+							CFSTR("No Model Selected.\n"),
 							CFSTR("Please select a model to view.\n"),
-							NULL, &theItem);// 3
+							NULL, &theItem);
 		
 		RunStandardAlert (theItem, NULL, &itemIndex);
 		
@@ -1446,7 +1336,7 @@ pascal bool ViewModelCommandHandler()
 			
 		}
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    nameField;
 	ControlHandle	 raceField;
@@ -1461,7 +1351,7 @@ pascal bool ViewModelCommandHandler()
 	ControlHandle    mirrorField;
 	
 	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  nameFieldControlID = { viewnameFieldSignature, 
 	viewnameFieldID }; 
@@ -1497,7 +1387,7 @@ pascal bool ViewModelCommandHandler()
 	viewmirrorFieldID }; 
 	
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (window5, &nameFieldControlID,               
 					&nameField ); 
@@ -1531,9 +1421,7 @@ pascal bool ViewModelCommandHandler()
 	
 	GetControlByID (window5, &mirrorFieldControlID,               
 					&mirrorField ); 
-	
-	
-	
+
 	
 	// Set fields
 	SetControlData( nameField, 0, kControlEditTextCFStringTag,  
@@ -1559,8 +1447,6 @@ pascal bool ViewModelCommandHandler()
 	SetControlData( mirrorField, 0, kControlEditTextCFStringTag,  
 				   sizeof (CFStringRef), &mirror);
 	
-	
-	
 	// Convert CFStringRef to URL
 	CFURLRef filenameURL = CFURLCreateWithString(kCFAllocatorDefault,imageName, NULL);
 	CFShow(filenameURL);
@@ -1568,8 +1454,7 @@ pascal bool ViewModelCommandHandler()
 	// load the image
 	CGImageRef imagefile;
 	CGDataProviderRef provider = CGDataProviderCreateWithURL( filenameURL );
-	imagefile = CGImageCreateWithJPEGDataProvider( provider,
-												  NULL, false,  kCGRenderingIntentDefault );
+	imagefile = CGImageCreateWithJPEGDataProvider( provider, NULL, false,  kCGRenderingIntentDefault );
 	
 	// find the control
 	const HIViewID kImageViewID = {'vwpc', 601};
@@ -1580,120 +1465,101 @@ pascal bool ViewModelCommandHandler()
 	// set the image into the view.
 	HIImageViewSetImage( imageViewRef, imagefile ); // retains the image.
 
-
 	HIViewSetNeedsDisplay(imageViewRef, TRUE);
 	
 	DisposeHandle(selectedID);
 	
 	return outcome;
-	
 }
 
 
-pascal void GroupListDataCallback (ControlRef browser,
-								   DataBrowserItemID itemID,
-								   DataBrowserPropertyID property,
-								   DataBrowserItemDataRef itemData,
-								   Boolean changeValue)
-{
-	// change made here
+pascal void GroupListDataCallback (ControlRef browser, DataBrowserItemID itemID, DataBrowserPropertyID property, DataBrowserItemDataRef itemData, Boolean changeValue) {
+
 	long newItemID = itemID;
-    int dataIndex = newItemID - 1;
+	int dataIndex = newItemID - 1;
 	CFOptionFlags casechk;
 	casechk= kCFCompareCaseInsensitive;
 	
-	if (!changeValue) switch (property)
-	{
-        case 'GRCL':	
+	if (!changeValue) switch (property) {
+        
+		case 'GRCL':	
 			
 			if(dataIndex<masterGroupList.groupList.size()){
-				SetDataBrowserItemDataText (itemData,
-											masterGroupList.groupList[dataIndex].groupName); // 2
+				SetDataBrowserItemDataText (itemData, masterGroupList.groupList[dataIndex].groupName);
 				masterGroupList.groupList[dataIndex].tableID = newItemID;
 			}
 			
-            break;
+			break;
 			
-        default:
-            break;
-    }
-	
-	
+		default:
+			break;
+	}
 }
 
-pascal void InitializeGroupListDataBrowser ()
-{
-    const       ControlID  dbControlID  = { 'GRDV', 711 };// 1
-    SInt32      numRows;
-    ControlRef  dbControl;
-    DataBrowserCallbacks  dbCallbacks;
+pascal void InitializeGroupListDataBrowser () {
+	const       ControlID  dbControlID  = { 'GRDV', 711 };
+	SInt32      numRows;
+	ControlRef  dbControl;
+	DataBrowserCallbacks  dbCallbacks;
 	
-    GetControlByID (gGroupListWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gGroupListWindow, &dbControlID, &dbControl);
 	
-    dbCallbacks.version = kDataBrowserLatestCallbacks;// 3
-    InitDataBrowserCallbacks (&dbCallbacks);// 4
+	dbCallbacks.version = kDataBrowserLatestCallbacks;
+	InitDataBrowserCallbacks (&dbCallbacks);
 	
-    dbCallbacks.u.v1.itemDataCallback =
+	dbCallbacks.u.v1.itemDataCallback =
 	NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
-							  GroupListDataCallback);// 5
+							  GroupListDataCallback);
+	SetDataBrowserCallbacks(dbControl, &dbCallbacks);
 	
-    SetDataBrowserCallbacks(dbControl, &dbCallbacks);// 6
-	
-    SetAutomaticControlDragTrackingEnabledForWindow (gGroupListWindow, true);// 7
+	SetAutomaticControlDragTrackingEnabledForWindow (gGroupListWindow, true);
 	
 	printf("POPULATING GROUP LIST.\n");
-    numRows = masterGroupList.groupList.size();
-    AddDataBrowserItems (dbControl, kDataBrowserNoItem, numRows,
-						 NULL, kDataBrowserItemNoProperty );// 9
-	
-	
+	numRows = masterGroupList.groupList.size();
+	AddDataBrowserItems (dbControl, kDataBrowserNoItem, numRows,
+						 NULL, kDataBrowserItemNoProperty );
 }
 
-pascal void ClearGroupListDataBrowser(){
+pascal void ClearGroupListDataBrowser() {
 	
-	const       ControlID  dbControlID  = { 'GRDV', 711 };// 1
-    ControlRef  dbControl;
-    DataBrowserCallbacks  dbCallbacks;
+	const       ControlID  dbControlID  = { 'GRDV', 711 };
+	ControlRef  dbControl;
+	DataBrowserCallbacks  dbCallbacks;
 	
-    GetControlByID (gGroupListWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gGroupListWindow, &dbControlID, &dbControl);
 	
-    dbCallbacks.version = kDataBrowserLatestCallbacks;// 3
-    InitDataBrowserCallbacks (&dbCallbacks);// 4
+	dbCallbacks.version = kDataBrowserLatestCallbacks;
+	InitDataBrowserCallbacks (&dbCallbacks);
 	
-    dbCallbacks.u.v1.itemDataCallback =
+	dbCallbacks.u.v1.itemDataCallback =
 	NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
-							  GroupListDataCallback);// 5
+							  GroupListDataCallback);
 	
-    SetDataBrowserCallbacks(dbControl, &dbCallbacks);// 6
+	SetDataBrowserCallbacks(dbControl, &dbCallbacks);
 	
-    SetAutomaticControlDragTrackingEnabledForWindow (gGroupListWindow, true);// 7
+	SetAutomaticControlDragTrackingEnabledForWindow (gGroupListWindow, true);
 	
 	RemoveDataBrowserItems (dbControl, kDataBrowserNoItem, 0,NULL, kDataBrowserItemNoProperty);
-	
-	
 }
 
-pascal void CancelAddGroupCommandHandler(){
+pascal void CancelAddGroupCommandHandler() {
 	
 	resetAddGroupDialog();
-	
 }
 
-pascal void resetAddGroupDialog()
-{
-	// Declare ControlHandles
+pascal void resetAddGroupDialog() {
+
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    nameField;
 	
-	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
-	ControlID  nameFieldControlID = { AddGroupTextSignature, 
-	AddGroupTextID }; 
+	ControlID  nameFieldControlID = { AddGroupTextSignature, AddGroupTextID }; 
 	
 	CFStringRef blank = CFSTR("New Group");
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (gAddGroupWindow, &nameFieldControlID,               
 					&nameField ); 
@@ -1702,28 +1568,25 @@ pascal void resetAddGroupDialog()
 	// Reset fields
 	SetControlData( nameField, 0, kControlEditTextCFStringTag,  
 				   sizeof (CFStringRef), &blank);
-	
+
 	CFRelease(blank);
-	
 }
 
-pascal bool AddGroupCommandHandler(){
+pascal bool AddGroupCommandHandler() {
 	
 	bool outcome = true;
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    nameField;
 	
-	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
-	ControlID  nameFieldControlID = { AddGroupTextSignature, 
-	AddGroupTextID }; 
+	ControlID  nameFieldControlID = { AddGroupTextSignature, AddGroupTextID }; 
 		
 	CFStringRef nameInput;
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (gAddGroupWindow, &nameFieldControlID,               
 					&nameField ); 
@@ -1732,21 +1595,19 @@ pascal bool AddGroupCommandHandler(){
 	GetControlData( nameField, 0, kControlEditTextCFStringTag,    
 				   sizeof (CFStringRef), &nameInput, NULL); 
 	
-		
 	printf("Running Add Group Routine\n");
 	
-	// copy group name
+	// Copy group name
 	CFStringRef setName = CFStringCreateCopy(NULL, nameInput);
 	
-	if(masterGroupList.doesGroupExist(setName))
-	{
+	if(masterGroupList.doesGroupExist(setName)) {
 		DialogRef theItem;
 		DialogItemIndex itemIndex;
 		
-		CreateStandardAlert(kAlertCautionAlert, // 1
-							CFSTR("That group name already exists.\n"), // 2
+		CreateStandardAlert(kAlertCautionAlert, 
+							CFSTR("That group name already exists.\n"),
 							CFSTR("Please choose a unique group name.\n"),
-							NULL, &theItem);// 3
+							NULL, &theItem);
 		
 		RunStandardAlert (theItem, NULL, &itemIndex);
 		
@@ -1758,31 +1619,24 @@ pascal bool AddGroupCommandHandler(){
 	else
 		masterGroupList.AddGroup(setName);
 		
-
 	// Reset Fields
 	resetAddGroupDialog();
 	
-	// Back Up Database
-	// Goes here pico
-	
-	
 	// Must always do this after getting a string from interface
 	CFRelease(nameInput);
-	
 
-	return outcome;
-	
+	return outcome;	
 }
 
-pascal bool DeleteGroupCommandHandler()
-{	
+pascal bool DeleteGroupCommandHandler() {	
+	
 	bool outcome = true;
 	
 	// Get table info
-	const       ControlID  dbControlID  = { 'GRDV', 711 };// 1
-    ControlRef  dbControl;
+	const       ControlID  dbControlID  = { 'GRDV', 711 };
+	ControlRef  dbControl;
 	
-    GetControlByID (gGroupListWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gGroupListWindow, &dbControlID, &dbControl);
 	
 	Handle selectedID = ::NewHandle(0);
 	ItemCount size;
@@ -1803,10 +1657,10 @@ pascal bool DeleteGroupCommandHandler()
 		DialogRef theItem;
 		DialogItemIndex itemIndex;
 		
-		CreateStandardAlert(kAlertCautionAlert, // 1
-							CFSTR("No Group Selected.\n"), // 2
+		CreateStandardAlert(kAlertCautionAlert,  
+							CFSTR("No Group Selected.\n"),  
 							CFSTR("Please select a group to delete.\n"),
-							NULL, &theItem);// 3
+							NULL, &theItem); 
 		
 		RunStandardAlert (theItem, NULL, &itemIndex);
 		
@@ -1830,10 +1684,10 @@ pascal bool DeleteGroupCommandHandler()
 		kAlertStdAlertCancelButton, kWindowAlertPositionParentWindowScreen,
 	NULL};
 	
-	CreateStandardAlert(kAlertCautionAlert, // 1
-						removename, // 2
+	CreateStandardAlert(kAlertCautionAlert,
+						removename,
 						CFSTR("Are you sure you want to remove this group?"),
-						&params, &theItem);// 3
+						&params, &theItem);
 	
 	RunStandardAlert (theItem, NULL, &itemIndex); 
 	
@@ -1853,18 +1707,17 @@ pascal bool DeleteGroupCommandHandler()
 	DisposeHandle(selectedID);
 	
 	return outcome;
-	
 }
 
-pascal DataBrowserItemID GetGroupSelection(){
+pascal DataBrowserItemID GetGroupSelection() {
 	
 	bool outcome = true;
 	
 	// Get table info
-	const       ControlID  dbControlID  = { 'GRDV', 711 };// 1
-    ControlRef  dbControl;
+	const       ControlID  dbControlID  = { 'GRDV', 711 };
+	ControlRef  dbControl;
 	
-    GetControlByID (gGroupListWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gGroupListWindow, &dbControlID, &dbControl);
 	
 	Handle selectedID = ::NewHandle(0);
 	ItemCount size;
@@ -1885,10 +1738,10 @@ pascal DataBrowserItemID GetGroupSelection(){
 		DialogRef theItem;
 		DialogItemIndex itemIndex;
 		
-		CreateStandardAlert(kAlertCautionAlert, // 1
-							CFSTR("No Group Selected.\n"), // 2
+		CreateStandardAlert(kAlertCautionAlert,
+							CFSTR("No Group Selected.\n"),
 							CFSTR("Please select a group to edit.\n"),
-							NULL, &theItem);// 3
+							NULL, &theItem);
 		
 		RunStandardAlert (theItem, NULL, &itemIndex);
 		
@@ -1908,201 +1761,159 @@ pascal DataBrowserItemID GetGroupSelection(){
 	DisposeHandle(selectedID);
 	
 	return editID;
-	
 }
 
-
-
-
-pascal void ModelListGroupDataCallback (ControlRef browser,
-								   DataBrowserItemID itemID,
-								   DataBrowserPropertyID property,
-								   DataBrowserItemDataRef itemData,
-								   Boolean changeValue)
-{
+pascal void ModelListGroupDataCallback (ControlRef browser, DataBrowserItemID itemID, DataBrowserPropertyID property, DataBrowserItemDataRef itemData, Boolean changeValue) {
 	
     int dataIndex = itemID - 1;
 	CFOptionFlags casechk;
 	casechk= kCFCompareCaseInsensitive;
 	
-	if (!changeValue) switch (property)
-	{
-        case nameColumn:	
+	if (!changeValue) switch (property) {
+		case nameColumn:	
 			
-		
-				SetDataBrowserItemDataText (itemData,
-											masterModelList.modelList[dataIndex].modelName); // 2
-			
-			
+			SetDataBrowserItemDataText (itemData, masterModelList.modelList[dataIndex].modelName);
 			masterModelList.modelList[dataIndex].tableID = itemID;
+			break;
 			
-            break;
+		case makeupColumn:	
+		
+			SetDataBrowserItemDataText (itemData,
+			masterModelList.modelList[dataIndex].makeupType);
+			break;
 			
-        case makeupColumn:	
-			
-			
-				SetDataBrowserItemDataText (itemData,
-											masterModelList.modelList[dataIndex].makeupType);
-            break;
-			
-			
-        default:
-            break;
+		default:
+			break;
     }
-	
-	
 }
 
-pascal void InitializeModelGroupDataBrowser ()
-{
-    const       ControlID  dbControlID  = { 'MDL2', 751 };// 1
-    SInt32      numRows;
-    ControlRef  dbControl;
-    DataBrowserCallbacks  dbCallbacks;
+pascal void InitializeModelGroupDataBrowser () {
+
+	const       ControlID  dbControlID  = { 'MDL2', 751 };
+	SInt32      numRows;
+	ControlRef  dbControl;
+	DataBrowserCallbacks  dbCallbacks;
 	
-    GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);
 	
-    dbCallbacks.version = kDataBrowserLatestCallbacks;// 3
-    InitDataBrowserCallbacks (&dbCallbacks);// 4
+	dbCallbacks.version = kDataBrowserLatestCallbacks;
+	InitDataBrowserCallbacks (&dbCallbacks);
 	
-    dbCallbacks.u.v1.itemDataCallback =
+	dbCallbacks.u.v1.itemDataCallback =
 	NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
-							  ModelListGroupDataCallback);// 5
+							  ModelListGroupDataCallback);
 	
-    SetDataBrowserCallbacks(dbControl, &dbCallbacks);// 6
+	SetDataBrowserCallbacks(dbControl, &dbCallbacks);
 	
-    SetAutomaticControlDragTrackingEnabledForWindow (gEditGroupWindow, true);// 7
+	SetAutomaticControlDragTrackingEnabledForWindow (gEditGroupWindow, true);
 	
 	printf("POPULATING LIST.\n");
-    numRows = masterModelList.ReturnTotalModels();
-    AddDataBrowserItems (dbControl, kDataBrowserNoItem, numRows,
-						 NULL, kDataBrowserItemNoProperty );// 9
-	
-	
+	numRows = masterModelList.ReturnTotalModels();
+	AddDataBrowserItems (dbControl, kDataBrowserNoItem, numRows,
+						 NULL, kDataBrowserItemNoProperty );
 }
 
 pascal void ClearModelGroupDataBrowser(){
 	
-	const       ControlID  dbControlID  = { 'MDL2', 751 };// 1
-    ControlRef  dbControl;
-    DataBrowserCallbacks  dbCallbacks;
+	const       ControlID  dbControlID  = { 'MDL2', 751 };
+	ControlRef  dbControl;
+	DataBrowserCallbacks  dbCallbacks;
 	
-    GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);
 	
-    dbCallbacks.version = kDataBrowserLatestCallbacks;// 3
-    InitDataBrowserCallbacks (&dbCallbacks);// 4
+	dbCallbacks.version = kDataBrowserLatestCallbacks;
+	InitDataBrowserCallbacks (&dbCallbacks);
 	
-    dbCallbacks.u.v1.itemDataCallback =
-	NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
-							  ModelListGroupDataCallback);// 5
+	dbCallbacks.u.v1.itemDataCallback =
+		NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
+							  ModelListGroupDataCallback);
 	
-    SetDataBrowserCallbacks(dbControl, &dbCallbacks);// 6
+	SetDataBrowserCallbacks(dbControl, &dbCallbacks);
 	
-    SetAutomaticControlDragTrackingEnabledForWindow (gEditGroupWindow, true);// 7
+	SetAutomaticControlDragTrackingEnabledForWindow (gEditGroupWindow, true);
 	
 	RemoveDataBrowserItems (dbControl, kDataBrowserNoItem, 0,NULL, kDataBrowserItemNoProperty);
-	
 }
 
-
-pascal void GroupMemberDataCallback (ControlRef browser,
-										DataBrowserItemID itemID,
-										DataBrowserPropertyID property,
-										DataBrowserItemDataRef itemData,
-										Boolean changeValue)
-{
+pascal void GroupMemberDataCallback (ControlRef browser, DataBrowserItemID itemID, DataBrowserPropertyID property, DataBrowserItemDataRef itemData, Boolean changeValue) {
 	
-    int dataIndex = itemID - 1;
+	int dataIndex = itemID - 1;
 	CFOptionFlags casechk;
 	casechk= kCFCompareCaseInsensitive;
 	
-	if (!changeValue) switch (property)
-	{
-        case nameColumn:	
+	if (!changeValue) switch (property) {
+        
+		case nameColumn:	
+			SetDataBrowserItemDataText (itemData, masterGroupList.groupList[groupIndex].modelList[dataIndex].modelName);
+			masterGroupList.groupList[groupIndex].modelList[dataIndex].tableID = itemID;
+            		break;
 			
-				SetDataBrowserItemDataText (itemData,
-											masterGroupList.groupList[groupIndex].modelList[dataIndex].modelName); // 2
-			
-				masterGroupList.groupList[groupIndex].modelList[dataIndex].tableID = itemID;
-			
-            break;
-			
-        case makeupColumn:	
-			
-
-				SetDataBrowserItemDataText (itemData,
-											masterGroupList.groupList[groupIndex].modelList[dataIndex].makeupType);
-            break;
-			
-			
-        default:
-            break;
-    }
+		case makeupColumn:	
+			SetDataBrowserItemDataText (itemData, masterGroupList.groupList[groupIndex].modelList[dataIndex].makeupType);
+			break;
 	
-	
+        	default:
+			break;
+	}	
 }
 
-pascal void InitializeGroupMemberDataBrowser (UInt32 groupIndex)
-{
-    const       ControlID  dbControlID  = { 'MDL1', 750 };// 1
-    SInt32      numRows;
-    ControlRef  dbControl;
-    DataBrowserCallbacks  dbCallbacks;
+pascal void InitializeGroupMemberDataBrowser (UInt32 groupIndex) {
+	const       ControlID  dbControlID  = { 'MDL1', 750 };
+	SInt32      numRows;
+	ControlRef  dbControl;
+	DataBrowserCallbacks  dbCallbacks;
 	
-    GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);
 	
-    dbCallbacks.version = kDataBrowserLatestCallbacks;// 3
-    InitDataBrowserCallbacks (&dbCallbacks);// 4
+	dbCallbacks.version = kDataBrowserLatestCallbacks;
+	InitDataBrowserCallbacks (&dbCallbacks);
 	
-    dbCallbacks.u.v1.itemDataCallback =
-	NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
-							  GroupMemberDataCallback);// 5
+	dbCallbacks.u.v1.itemDataCallback =
+		NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
+							  GroupMemberDataCallback);
 	
-    SetDataBrowserCallbacks(dbControl, &dbCallbacks);// 6
+	SetDataBrowserCallbacks(dbControl, &dbCallbacks);
 	
-    SetAutomaticControlDragTrackingEnabledForWindow (gEditGroupWindow, true);// 7
+	SetAutomaticControlDragTrackingEnabledForWindow (gEditGroupWindow, true);
 	
 	printf("POPULATING LIST.\n");
-    numRows = masterGroupList.groupList[groupIndex].modelList.size();
-    AddDataBrowserItems (dbControl, kDataBrowserNoItem, numRows,
-						 NULL, kDataBrowserItemNoProperty );// 9
-	
-	
+	numRows = masterGroupList.groupList[groupIndex].modelList.size();
+	AddDataBrowserItems (dbControl, kDataBrowserNoItem, numRows,
+						 NULL, kDataBrowserItemNoProperty );
 }
 
-pascal void ClearGroupMemberDataBrowser(){
+pascal void ClearGroupMemberDataBrowser() {
 	
-	const       ControlID  dbControlID  = { 'MDL1', 750 };// 1
-    ControlRef  dbControl;
-    DataBrowserCallbacks  dbCallbacks;
+	const       ControlID  dbControlID  = { 'MDL1', 750 }; 
+	ControlRef  dbControl;
+	DataBrowserCallbacks  dbCallbacks;
 	
-    GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);   
 	
-    dbCallbacks.version = kDataBrowserLatestCallbacks;// 3
-    InitDataBrowserCallbacks (&dbCallbacks);// 4
+	dbCallbacks.version = kDataBrowserLatestCallbacks; 
+	InitDataBrowserCallbacks (&dbCallbacks); 
 	
-    dbCallbacks.u.v1.itemDataCallback =
-	NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
-							  GroupMemberDataCallback);// 5
+	dbCallbacks.u.v1.itemDataCallback =
+		NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
+							  GroupMemberDataCallback); 
+
+	SetDataBrowserCallbacks(dbControl, &dbCallbacks); 
 	
-    SetDataBrowserCallbacks(dbControl, &dbCallbacks);// 6
-	
-    SetAutomaticControlDragTrackingEnabledForWindow (gEditGroupWindow, true);// 7
+	SetAutomaticControlDragTrackingEnabledForWindow (gEditGroupWindow, true); 
 	
 	RemoveDataBrowserItems (dbControl, kDataBrowserNoItem, 0,NULL, kDataBrowserItemNoProperty);
-	
 }
 
 
-pascal bool AddGroupMemberCommandHandler(){
+pascal bool AddGroupMemberCommandHandler() {
 	
 	bool outcome = true;
 	
 	// Get table info
-	const       ControlID  dbControlID  = { 'MDL2', 751 };// 1
-    ControlRef  dbControl;
+	const       ControlID  dbControlID  = { 'MDL2', 751 }; 
+	ControlRef  dbControl;
 	
-    GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);   
 	
 	Handle selectedID = ::NewHandle(0);
 	ItemCount size;
@@ -2123,10 +1934,10 @@ pascal bool AddGroupMemberCommandHandler(){
 		DialogRef theItem;
 		DialogItemIndex itemIndex;
 		
-		CreateStandardAlert(kAlertCautionAlert, // 1
-							CFSTR("No Model Selected.\n"), // 2
+		CreateStandardAlert(kAlertCautionAlert,  
+							CFSTR("No Model Selected.\n"),  
 							CFSTR("Please select a model to add.\n"),
-							NULL, &theItem);// 3
+							NULL, &theItem); 
 		
 		RunStandardAlert (theItem, NULL, &itemIndex);
 		
@@ -2145,7 +1956,6 @@ pascal bool AddGroupMemberCommandHandler(){
 	CFStringRef modelname = masterModelList.GetNameFromID(*individualItem);
 	CFShow(modelname);
 	
-	
 	CFStringRef modelName;
 	CFStringRef imageName;
 	CFStringRef makeupType;
@@ -2159,7 +1969,7 @@ pascal bool AddGroupMemberCommandHandler(){
 	CFStringRef smile;
 	CFStringRef mirror;
 	
-	// Set Content Here
+	// Sets Content
 	for(int i=0; i<masterModelList.modelList.size(); i++)
 		if(masterModelList.modelList[i].tableID == *individualItem){
 			modelName = masterModelList.modelList[i].modelName;
@@ -2184,23 +1994,20 @@ pascal bool AddGroupMemberCommandHandler(){
 	masterGroupList.AddModelToGroup(groupName, *individualItem, modelName, imageName, makeupType, race, age, segment, 
 									marital, income, orientation, hair, smile, mirror);
 	
-	
-	
 	DisposeHandle(selectedID);
 	
 	return outcome;
-
 }
 
-pascal bool DeleteGroupMemberCommandHandler(){
+pascal bool DeleteGroupMemberCommandHandler() {
 	
 	bool outcome = true;
 	
 	// Get table info
-	const       ControlID  dbControlID  = { 'MDL1', 750 };// 1
-    ControlRef  dbControl;
+	const       ControlID  dbControlID  = { 'MDL1', 750 }; 
+	ControlRef  dbControl;
 	
-    GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gEditGroupWindow, &dbControlID, &dbControl);   
 	
 	Handle selectedID = ::NewHandle(0);
 	ItemCount size;
@@ -2221,10 +2028,10 @@ pascal bool DeleteGroupMemberCommandHandler(){
 		DialogRef theItem;
 		DialogItemIndex itemIndex;
 		
-		CreateStandardAlert(kAlertCautionAlert, // 1
-							CFSTR("No Group Member Selected.\n"), // 2
+		CreateStandardAlert(kAlertCautionAlert,  
+							CFSTR("No Group Member Selected.\n"),  
 							CFSTR("Please select a Group Member to remove.\n"),
-							NULL, &theItem);// 3
+							NULL, &theItem); 
 		
 		RunStandardAlert (theItem, NULL, &itemIndex);
 		
@@ -2239,7 +2046,6 @@ pascal bool DeleteGroupMemberCommandHandler(){
 	individualItem = (DataBrowserItemID*)( *selectedID );
 	printf("ID2: %d\n", *individualItem);
 	
-
 	// Get Group Name
 	CFStringRef groupName = masterGroupList.GetNameFromID(groupID);
 	
@@ -2249,73 +2055,66 @@ pascal bool DeleteGroupMemberCommandHandler(){
 	DisposeHandle(selectedID);
 	
 	return outcome;
-	
 }
 
-pascal void InitializeTrialGroupListDataBrowser ()
-{
-    const       ControlID  dbControlID  = { 'GRCH', 801 };// 1
-    SInt32      numRows;
-    ControlRef  dbControl;
-    DataBrowserCallbacks  dbCallbacks;
+pascal void InitializeTrialGroupListDataBrowser () {
+
+	const       ControlID  dbControlID  = { 'GRCH', 801 }; 
+	SInt32      numRows;
+	ControlRef  dbControl;
+	DataBrowserCallbacks  dbCallbacks;
 	
-    GetControlByID (gNewTrialWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gNewTrialWindow, &dbControlID, &dbControl);   
 	
-    dbCallbacks.version = kDataBrowserLatestCallbacks;// 3
-    InitDataBrowserCallbacks (&dbCallbacks);// 4
+	dbCallbacks.version = kDataBrowserLatestCallbacks; 
+	InitDataBrowserCallbacks (&dbCallbacks); 
 	
-    dbCallbacks.u.v1.itemDataCallback =
-	NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
-							  GroupListDataCallback);// 5
+	dbCallbacks.u.v1.itemDataCallback =
+		NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
+							  GroupListDataCallback); 
 	
-    SetDataBrowserCallbacks(dbControl, &dbCallbacks);// 6
+	SetDataBrowserCallbacks(dbControl, &dbCallbacks); 
 	
-    SetAutomaticControlDragTrackingEnabledForWindow (gNewTrialWindow, true);// 7
+	SetAutomaticControlDragTrackingEnabledForWindow (gNewTrialWindow, true); 
 	
 	printf("POPULATING TRIAL GROUP LIST.\n");
-    numRows = masterGroupList.groupList.size();
-    AddDataBrowserItems (dbControl, kDataBrowserNoItem, numRows,
-						 NULL, kDataBrowserItemNoProperty );// 9
-	
-	
+	numRows = masterGroupList.groupList.size();
+	AddDataBrowserItems (dbControl, kDataBrowserNoItem, numRows,
+						 NULL, kDataBrowserItemNoProperty ); 
 }
 
-pascal void ClearTrialGroupListDataBrowser(){
+pascal void ClearTrialGroupListDataBrowser() {
 	
-	const       ControlID  dbControlID  = { 'GRCH', 801 };// 1
-    ControlRef  dbControl;
-    DataBrowserCallbacks  dbCallbacks;
+	const       ControlID  dbControlID  = { 'GRCH', 801 }; 
+	ControlRef  dbControl;
+	DataBrowserCallbacks  dbCallbacks;
 	
-    GetControlByID (gNewTrialWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gNewTrialWindow, &dbControlID, &dbControl);   
 	
-    dbCallbacks.version = kDataBrowserLatestCallbacks;// 3
-    InitDataBrowserCallbacks (&dbCallbacks);// 4
+	dbCallbacks.version = kDataBrowserLatestCallbacks; 
+	InitDataBrowserCallbacks (&dbCallbacks); 
 	
-    dbCallbacks.u.v1.itemDataCallback =
-	NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
-							  GroupListDataCallback);// 5
+	dbCallbacks.u.v1.itemDataCallback =
+		NewDataBrowserItemDataUPP((DataBrowserItemDataProcPtr)
+							  GroupListDataCallback); 
 	
-    SetDataBrowserCallbacks(dbControl, &dbCallbacks);// 6
+	SetDataBrowserCallbacks(dbControl, &dbCallbacks); 
 	
-    SetAutomaticControlDragTrackingEnabledForWindow (gNewTrialWindow, true);// 7
+	SetAutomaticControlDragTrackingEnabledForWindow (gNewTrialWindow, true); 
 	
-	RemoveDataBrowserItems (dbControl, kDataBrowserNoItem, 0,NULL, kDataBrowserItemNoProperty);
-	
-	
+	RemoveDataBrowserItems (dbControl, kDataBrowserNoItem, 0,NULL, kDataBrowserItemNoProperty);	
 }
 
-pascal void ResetNewTrialWindow(){
+pascal void ResetNewTrialWindow() {
 	
-	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    nameField;
 	ControlHandle	 raceField;
 	ControlHandle	 ageField;
 	ControlHandle	 idField;
 	
-	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  nameFieldControlID = { userNameSignature, 
 	userNameID }; 
@@ -2331,7 +2130,7 @@ pascal void ResetNewTrialWindow(){
 	
 	CFStringRef blank = CFSTR("");
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (gNewTrialWindow, &nameFieldControlID,               
 					&nameField ); 
@@ -2345,7 +2144,6 @@ pascal void ResetNewTrialWindow(){
 	GetControlByID (gNewTrialWindow, &idFieldControlID,               
 					&idField ); 
 	
-	
 	// Reset fields
 	SetControlData( nameField, 0, kControlEditTextCFStringTag,  
 				   sizeof (CFStringRef), &blank);
@@ -2356,7 +2154,7 @@ pascal void ResetNewTrialWindow(){
 	SetControlData( idField, 0, kControlEditTextCFStringTag,  
 				   sizeof (CFStringRef), &blank);
 	
-	
+
 	// Reset Radio buttons
 	HIViewID radioButtonsID = {'BTSL', 802 };
 	
@@ -2368,21 +2166,18 @@ pascal void ResetNewTrialWindow(){
 	status= HIViewSetValue(radioButtonRef, 1);
 	verify_noerr(status);
 	
-	
 	CFRelease(blank);
-	
-	
 }
 
-pascal int BeginNewTrialCommandHandler(){
+pascal int BeginNewTrialCommandHandler() {
 	
 	int trialNumber = 0;
 	
 	// Get table info
-	const       ControlID  dbControlID  = { 'GRCH', 801 };// 1
-    ControlRef  dbControl;
+	const       ControlID  dbControlID  = { 'GRCH', 801 }; 
+	ControlRef  dbControl;
 	
-    GetControlByID (gNewTrialWindow, &dbControlID, &dbControl);  // 2
+	GetControlByID (gNewTrialWindow, &dbControlID, &dbControl);   
 	
 	Handle selectedID = ::NewHandle(0);
 	ItemCount size;
@@ -2402,10 +2197,10 @@ pascal int BeginNewTrialCommandHandler(){
 		DialogRef theItem;
 		DialogItemIndex itemIndex;
 		
-		CreateStandardAlert(kAlertCautionAlert, // 1
-							CFSTR("No Group Selected.\n"), // 2
+		CreateStandardAlert(kAlertCautionAlert,  
+							CFSTR("No Group Selected.\n"),  
 							CFSTR("Please select a group to use in this trial.\n"),
-							NULL, &theItem);// 3
+							NULL, &theItem); 
 		
 		RunStandardAlert (theItem, NULL, &itemIndex);
 		
@@ -2427,14 +2222,13 @@ pascal int BeginNewTrialCommandHandler(){
 	
 	// Save group vector index
 	currentTrial.SetGroupID(inID);
-
 	
 	CFStringRef userName;
 	CFStringRef userRace;
 	CFStringRef userAge;
 	CFStringRef userID;
 	
-	// Declare ControlHandles
+	// ControlHandle Declarations
 	// ControlHandles correspond to different window elements
 	ControlHandle    nameField;
 	ControlHandle	 raceField;
@@ -2443,8 +2237,7 @@ pascal int BeginNewTrialCommandHandler(){
 	ControlHandle	 buttonGroup;
 	ControlHandle	 SexbuttonGroup;
 	
-	
-	// Create ControlIDs
+	// ControlID Declarations
 	// ControlIDs are the Signature (mnme) and numerical identifier (509) of different window elements
 	ControlID  nameFieldControlID = { userNameSignature, 
 	userNameID }; 
@@ -2464,7 +2257,7 @@ pascal int BeginNewTrialCommandHandler(){
 	ControlID  sexbuttonGroupControlID = { userSexSignature, 
 	userSexID }; 
 	
-	// 1 Assign ControlHandles
+	// Assign ControlHandles
 	// GetControlByID creates the ControlHandles based on the ControlIDs
 	GetControlByID (gNewTrialWindow, &nameFieldControlID,               
 					&nameField ); 
@@ -2552,17 +2345,13 @@ pascal int BeginNewTrialCommandHandler(){
 	DisposeHandle(selectedID);
 	
 	return trialNumber;
-	
 }
 
-pascal void DrawBatteryACurrentModel(){
-	
+pascal void DrawBatteryACurrentModel() {
 	
 	// Get current model's image name
 	CFStringRef imageName;
 	imageName = masterGroupList.groupList[currentTrial.groupID].modelList[currentTrial.currentModel].imageName;
-	
-	
 	
 	// Convert CFStringRef to URL
 	CFURLRef filenameURL = CFURLCreateWithString(kCFAllocatorDefault,imageName, NULL);
@@ -2571,8 +2360,7 @@ pascal void DrawBatteryACurrentModel(){
 	// load the image
 	CGImageRef imagefile;
 	CGDataProviderRef provider = CGDataProviderCreateWithURL( filenameURL );
-	imagefile = CGImageCreateWithJPEGDataProvider( provider,
-												  NULL, false,  kCGRenderingIntentDefault );
+	imagefile = CGImageCreateWithJPEGDataProvider( provider, NULL, false,  kCGRenderingIntentDefault );
 	
 	// find the control
 	const HIViewID kImageViewID = {'TROP', 811};
@@ -2581,11 +2369,9 @@ pascal void DrawBatteryACurrentModel(){
 				   kImageViewID, &imageViewRef);
 	
 	// set the image into the view.
-	HIImageViewSetImage( imageViewRef, imagefile ); // retains the image.
+	HIImageViewSetImage( imageViewRef, imagefile );
 	
 	HIViewSetNeedsDisplay(imageViewRef, TRUE);
-	
-
 }
 
 

@@ -39,12 +39,10 @@ public:
 	
 	DataBrowserItemID tableID;
 	DataBrowserItemID grouptableID;
-	
 };
 
 class ModelDB{
 public:
-	
 	ModelDB();
 	
 	void AddModel(DataBrowserItemID, CFStringRef, CFStringRef, CFStringRef, CFStringRef, CFStringRef,
@@ -60,12 +58,10 @@ public:
 	
 	vector<Model> modelList;
 	int modelTotal;
-	
 };
 
 class Group{
 public:
-	
 	Group();
 	void AddModel(DataBrowserItemID, CFStringRef, CFStringRef, CFStringRef, CFStringRef, CFStringRef,
 				  CFStringRef,CFStringRef,CFStringRef,CFStringRef,CFStringRef,CFStringRef,CFStringRef);
@@ -75,9 +71,7 @@ public:
 	DataBrowserItemID tableID;
 	DataBrowserItemID grouptableID;
 	
-	
 	vector<Model> modelList;
-	
 };
 
 class Trial{
@@ -131,7 +125,6 @@ public:
 
 class Groups{
 public:
-	
 	Groups(){}
 	void AddGroup(CFStringRef ingroupName);
 	void RemoveGroup(CFStringRef ingroupName);
@@ -151,8 +144,6 @@ public:
 	vector<Group> groupList;
 };
 	
-	
-
 Model::Model(){
 	
 	modelName = CFSTR("Empty");
@@ -172,7 +163,6 @@ Model::Model(){
 	
 	tableID = -1;
 	grouptableID = -1;
-	
 }
 
 Model::Model(DataBrowserItemID inID, CFStringRef modelname, CFStringRef imagename, CFStringRef makeuptype,
@@ -218,7 +208,6 @@ void Model::PrintModels(){
 ModelDB::ModelDB(){
 	
 	modelTotal = 0;
-	
 }
 
 void ModelDB::AddModel(DataBrowserItemID inID, CFStringRef name, CFStringRef pic, CFStringRef makeup, CFStringRef race, 
@@ -236,8 +225,6 @@ void ModelDB::AddModel(DataBrowserItemID inID, CFStringRef name, CFStringRef pic
 
 void ModelDB::RemoveModel(DataBrowserItemID removeID){
 	
-	
-	
 	for(int i=0; i<modelList.size(); i++)
 		if(modelList[i].tableID == removeID){
 			printf("MODEL FOUND.\n");
@@ -254,17 +241,12 @@ void ModelDB::RemoveModel(DataBrowserItemID removeID){
 	
 	
 	modelTotal--;
-	
 }
-
-
 
 void ModelDB::PrintDatabase(){
 	
 	for(int i=0; i<modelList.size(); i++)
 		modelList[i].PrintModels();
-	
-	
 }
 
 CFStringRef ModelDB::GetNameFromID(DataBrowserItemID checkID){
@@ -355,8 +337,6 @@ void ModelDB::SaveModels(){
 	
 	Output.close();
 	
-	
-	
 }
 
 void ModelDB::RebuildModels(){
@@ -412,21 +392,6 @@ void ModelDB::RebuildModels(){
 				CFStringRef inSmile = CFStringCreateWithCString (kCFAllocatorDefault, model_smile.c_str(), kCFStringEncodingUTF8);
 				CFStringRef inMirror = CFStringCreateWithCString (kCFAllocatorDefault, model_mirror.c_str(), kCFStringEncodingUTF8);
 			
-//				CFShow(inName);
-//				CFShow(inPic);
-//				CFShow(inMakeup);
-//				CFShow(inRace);
-//				CFShow(inAge);
-//				CFShow(inSegment);
-//				CFShow(inMarital);
-//				CFShow(inIncome);
-//				CFShow(inOrientation);
-//				CFShow(inHair);
-//				CFShow(inSmile);
-//				CFShow(inMirror);
-//				
-				
-				
 				AddModel(0, inName,  inPic,  inMakeup,  inRace, 
 						 inAge,  inSegment,  inMarital,  inIncome,
 						 inOrientation,  inHair,  inSmile, inMirror);
@@ -437,7 +402,6 @@ void ModelDB::RebuildModels(){
 		}
 		Input.close();
 	}
-	
 	
 	Input.close();
 	
@@ -452,14 +416,11 @@ Group::Group(){
 
 void Group::AddModel(DataBrowserItemID inID, CFStringRef name, CFStringRef pic, CFStringRef makeup, CFStringRef race, 
 					   CFStringRef age, CFStringRef Segment, CFStringRef Marital, CFStringRef Income,
-					   CFStringRef Orientation, CFStringRef Hair, CFStringRef Smile, CFStringRef Mirror)
-{
+					   CFStringRef Orientation, CFStringRef Hair, CFStringRef Smile, CFStringRef Mirror) {
 	
 	Model newModel(inID, name, pic, makeup, race, age, Segment, Marital, Income, Orientation, Hair, Smile, Mirror);
 	
 	modelList.push_back(newModel);
-	
-	
 }
 
 void Group::RemoveModel(DataBrowserItemID removeID){
@@ -472,20 +433,18 @@ void Group::RemoveModel(DataBrowserItemID removeID){
 			modelList.erase(modelList.begin()+i);
 			printf("I : %d \n", i);
 		}
-	
 }
 
 void Groups::AddModelToGroup(CFStringRef ingroupName, DataBrowserItemID inID, CFStringRef name, CFStringRef pic, CFStringRef makeup, CFStringRef race, 
 					  CFStringRef age, CFStringRef Segment, CFStringRef Marital, CFStringRef Income,
-					  CFStringRef Orientation, CFStringRef Hair, CFStringRef Smile, CFStringRef Mirror)
-{
+					  CFStringRef Orientation, CFStringRef Hair, CFStringRef Smile, CFStringRef Mirror) {
+
 	for(int i=0; i<groupList.size(); i++)
 		if(CFStringCompare(groupList[i].groupName, ingroupName, kCFCompareCaseInsensitive) == 0){
 			groupList[i].AddModel( inID,  name,  pic,  makeup,  race, 
 								    age, Segment,  Marital,  Income,
 								   Orientation,  Hair,  Smile, Mirror);
 		}
-	
 }
 
 void Groups::RemoveModelFromGroup(CFStringRef ingroupName, DataBrowserItemID removeID){
@@ -494,10 +453,10 @@ void Groups::RemoveModelFromGroup(CFStringRef ingroupName, DataBrowserItemID rem
 		if(CFStringCompare(groupList[i].groupName, ingroupName, kCFCompareCaseInsensitive) == 0)
 			for(int j=0; j<groupList[i].modelList.size(); j++)
 				if(groupList[i].modelList[j].tableID == removeID){
-			printf("MODEL FOUND IN SPECIFIED GROUP.\n");
-			printf("REMOVING ");
-			CFShow(groupList[i].modelList[j].modelName);
-			groupList[i].modelList.erase(groupList[i].modelList.begin()+j);
+					printf("MODEL FOUND IN SPECIFIED GROUP.\n");
+					printf("REMOVING ");
+					CFShow(groupList[i].modelList[j].modelName);
+					groupList[i].modelList.erase(groupList[i].modelList.begin()+j);
 				}
 	
 }
@@ -511,16 +470,14 @@ bool Groups::UniversalRemoveModelFromGroup(CFStringRef modelName, CFStringRef mo
 				if(CFStringCompare(groupList[i].modelList[j].imageName, modelPic, kCFCompareCaseInsensitive) == 0)
 					if(CFStringCompare(groupList[i].modelList[j].modelName, modelName, kCFCompareCaseInsensitive) == 0)
 						if(CFStringCompare(groupList[i].modelList[j].makeupType, makeupType, kCFCompareCaseInsensitive) == 0){
-					printf("MODEL FOUND IN UNIVERSAL SEARCH.\n");
-					printf("REMOVING ");
-					CFShow(groupList[i].modelList[j].modelName);
-					groupList[i].modelList.erase(groupList[i].modelList.begin()+j);
-					return removed;
+							printf("MODEL FOUND IN UNIVERSAL SEARCH.\n");
+							printf("REMOVING ");
+							CFShow(groupList[i].modelList[j].modelName);
+							groupList[i].modelList.erase(groupList[i].modelList.begin()+j);
+							return removed;
 						}
-	
 	removed = false;
 	return removed;
-
 }
 	
 
@@ -531,7 +488,6 @@ void Groups::AddGroup(CFStringRef ingroupName){
 	newGroup.groupName = ingroupName;
 	
 	groupList.push_back(newGroup);
-
 }
 
 void Groups::RemoveGroup(CFStringRef ingroupName){
@@ -543,7 +499,6 @@ void Groups::RemoveGroup(CFStringRef ingroupName){
 			CFShow(groupList[i].groupName);
 			groupList.erase(groupList.begin()+i);
 		}
-	
 }
 
 bool Groups::doesGroupExist(CFStringRef ingroupName){
@@ -553,7 +508,6 @@ bool Groups::doesGroupExist(CFStringRef ingroupName){
 			return true;
 	
 	return false;
-	
 }
 
 CFStringRef Groups::GetNameFromID(DataBrowserItemID checkID){
@@ -564,8 +518,6 @@ CFStringRef Groups::GetNameFromID(DataBrowserItemID checkID){
 			return groupList[i].groupName;
 	
 	return CFSTR("[Group]");
-	
-	
 }
 
 UInt32 Groups::GetIndexFromID(DataBrowserItemID checkID){
@@ -576,8 +528,6 @@ UInt32 Groups::GetIndexFromID(DataBrowserItemID checkID){
 			return i;
 	
 	return -1;
-	
-	
 }
 
 void Groups::PrintGroups(){
@@ -587,11 +537,9 @@ void Groups::PrintGroups(){
 		for(int j=0; j<groupList[i].modelList.size(); j++)
 			CFShow(groupList[i].modelList[j].modelName);
 	}
-	
 }
 	
 void Groups::SaveGroups(){
-	
 	
 	fstream Output("Group_Database.dat", ios::out);
 	
@@ -644,11 +592,7 @@ void Groups::SaveGroups(){
 		Output << model_mirror << "\n";
 	}
 	
-	
-	Output.close();
-	
-	
-	
+	Output.close();	
 }
 
 void Groups::RebuildGroups(){
@@ -706,24 +650,9 @@ void Groups::RebuildGroups(){
 				CFStringRef inHair = CFStringCreateWithCString (kCFAllocatorDefault, model_hair.c_str(), kCFStringEncodingUTF8);
 				CFStringRef inSmile = CFStringCreateWithCString (kCFAllocatorDefault, model_smile.c_str(), kCFStringEncodingUTF8);
 				CFStringRef inMirror = CFStringCreateWithCString (kCFAllocatorDefault, model_mirror.c_str(), kCFStringEncodingUTF8);
-				
-				//				CFShow(inName);
-				//				CFShow(inPic);
-				//				CFShow(inMakeup);
-				//				CFShow(inRace);
-				//				CFShow(inAge);
-				//				CFShow(inSegment);
-				//				CFShow(inMarital);
-				//				CFShow(inIncome);
-				//				CFShow(inOrientation);
-				//				CFShow(inHair);
-				//				CFShow(inSmile);
-				//				CFShow(inMirror);
-				//				
-				
+			
 				if(! doesGroupExist(inGroup))
 					AddGroup(inGroup);
-				
 				
 				AddModelToGroup(inGroup, 0, inName,  inPic,  inMakeup,  inRace, 
 						 inAge,  inSegment,  inMarital,  inIncome,
@@ -733,18 +662,17 @@ void Groups::RebuildGroups(){
 			
 			
 		}
+
 		Input.close();
 	}
 	
-	
 	Input.close();
-	
 }
 
 
 // -----------------------------------------------------------------------------------------//
 
-Groups				   masterGroupList;
+Groups						masterGroupList;
 
 Trial::Trial(){
 	
@@ -765,19 +693,16 @@ Trial::Trial(){
 	userOrientation = CFSTR("[Empty]");
 	userKids = CFSTR("[Empty]");
 	
-	
 }
 
 void Trial::IncrementCounter(){
 	
 	counter++;
-	
 }
 
 void Trial::SetGroupID(int inID){
 	
-	groupID = inID;
-	
+	groupID = inID;	
 }
 
 void Trial::SetEnd(int inEnd){
@@ -785,8 +710,7 @@ void Trial::SetEnd(int inEnd){
 	end = inEnd;
 	
 	for(int i=0; i<end; i++)
-		ratings.push_back(vector <int>());
-	
+		ratings.push_back(vector <int>());	
 }
 
 bool Trial::isOver(){
@@ -795,7 +719,6 @@ bool Trial::isOver(){
 		return true;
 	
 	return false;
-	
 }
 
 void Trial::SetUserData(CFStringRef inName, CFStringRef inID, CFStringRef inAge, CFStringRef inRace, CFStringRef inSex){
@@ -805,7 +728,6 @@ void Trial::SetUserData(CFStringRef inName, CFStringRef inID, CFStringRef inAge,
 	userAge = inAge;
 	userRace = inRace;
 	userSex = inSex;
-	
 }
 
 void Trial::SetUserSurveyData(CFStringRef setMarital, CFStringRef setIncome, CFStringRef setOrientation, CFStringRef setKids){
@@ -814,7 +736,6 @@ void Trial::SetUserSurveyData(CFStringRef setMarital, CFStringRef setIncome, CFS
 	userIncome = setIncome;
 	userOrientation = setOrientation;
 	userKids = setKids;
-	
 }
 
 void Trial::PrintTrial(){
@@ -838,36 +759,29 @@ void Trial::PrintTrial(){
 	}
 	
 	printf("\n********\n");
-
-	
 }
 
 void Trial::SetACompRating(int comp){
 	
 	ratings[currentModel].push_back(comp);
-	
 }
 
 void Trial::SetATrustRating(int trust){
 	
 	ratings[currentModel].push_back(trust);
-	
 }
 
 void Trial::SetALikeRating(int like){
 	
 	ratings[currentModel].push_back(like);
-	
 }
 
 void Trial::SetAAttrRating(int attr){
 	
 	ratings[currentModel].push_back(attr);
-	
 }
 
 void Trial::SaveBatteryA(){
-
 
 	fstream Output("Ratings_Trial_A.xls", ios::out | fstream::app);
 	
@@ -904,9 +818,6 @@ void Trial::SaveBatteryA(){
 		
 		const int kBufferSize = 256;
 		
-	
-		
-		
 		// Output Rater Information
 		char rater_id[kBufferSize];
 		char rater_race[kBufferSize];
@@ -935,62 +846,52 @@ void Trial::SaveBatteryA(){
 		Output << rater_orientation << "\t";
 		Output << rater_kids << "\t";
 
-
-
-
-		
-		
 		// Output Model Information
+		// copy from a CFString into a local c string
+		char model_name[kBufferSize];
+		char model_makeup[kBufferSize];
+		char model_race[kBufferSize];
+		char model_age[kBufferSize];
+		char model_segment[kBufferSize];
+		char model_marital[kBufferSize];
+		char model_income[kBufferSize];
+		char model_orientation[kBufferSize];
+		char model_hair[kBufferSize];
+		char model_smile[kBufferSize];
+		char model_mirror[kBufferSize];
 			
-			// copy from a CFString into a local c string
-			char model_name[kBufferSize];
-			char model_makeup[kBufferSize];
-			char model_race[kBufferSize];
-			char model_age[kBufferSize];
-			char model_segment[kBufferSize];
-			char model_marital[kBufferSize];
-			char model_income[kBufferSize];
-			char model_orientation[kBufferSize];
-			char model_hair[kBufferSize];
-			char model_smile[kBufferSize];
-			char model_mirror[kBufferSize];
-			
-			CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].modelName,model_name,kBufferSize, kCFStringEncodingMacRoman);
-			CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].makeupType,model_makeup,kBufferSize, kCFStringEncodingMacRoman);
-			CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].race,model_race,kBufferSize, kCFStringEncodingMacRoman);
-			CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].age,model_age,kBufferSize, kCFStringEncodingMacRoman);
-			CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].segment,model_segment,kBufferSize, kCFStringEncodingMacRoman);
-			CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].marital,model_marital,kBufferSize, kCFStringEncodingMacRoman);
-			CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].income,model_income,kBufferSize, kCFStringEncodingMacRoman);
-			CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].orientation,model_orientation,kBufferSize, kCFStringEncodingMacRoman);
-			CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].hair,model_hair,kBufferSize, kCFStringEncodingMacRoman);
-			CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].smile,model_smile,kBufferSize, kCFStringEncodingMacRoman);
-			CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].mirror,model_mirror,kBufferSize, kCFStringEncodingMacRoman);
+		CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].modelName,model_name,kBufferSize, kCFStringEncodingMacRoman);
+		CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].makeupType,model_makeup,kBufferSize, kCFStringEncodingMacRoman);
+		CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].race,model_race,kBufferSize, kCFStringEncodingMacRoman);
+		CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].age,model_age,kBufferSize, kCFStringEncodingMacRoman);
+		CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].segment,model_segment,kBufferSize, kCFStringEncodingMacRoman);
+		CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].marital,model_marital,kBufferSize, kCFStringEncodingMacRoman);
+		CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].income,model_income,kBufferSize, kCFStringEncodingMacRoman);
+		CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].orientation,model_orientation,kBufferSize, kCFStringEncodingMacRoman);
+		CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].hair,model_hair,kBufferSize, kCFStringEncodingMacRoman);
+		CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].smile,model_smile,kBufferSize, kCFStringEncodingMacRoman);
+		CFStringGetCString(masterGroupList.groupList[groupID].modelList[j].mirror,model_mirror,kBufferSize, kCFStringEncodingMacRoman);
 		
-			Output << model_name << "\t";
-			Output << model_makeup << "\t";
-			Output << model_race << "\t";
-			Output << model_age << "\t";
-			Output << model_segment << "\t";
-			Output << model_marital << "\t";
-			Output << model_income << "\t";
-			Output << model_orientation << "\t";
-			Output << model_hair << "\t";
-			Output << model_smile << "\t";
-			Output << model_mirror << "\t";
-		
+		Output << model_name << "\t";
+		Output << model_makeup << "\t";
+		Output << model_race << "\t";
+		Output << model_age << "\t";
+		Output << model_segment << "\t";
+		Output << model_marital << "\t";
+		Output << model_income << "\t";
+		Output << model_orientation << "\t";
+		Output << model_hair << "\t";
+		Output << model_smile << "\t";
+		Output << model_mirror << "\t";
 		
 		// Output Ratings
 		for(int i=0; i<ratings[j].size(); i++)
 			Output << ratings[j][i] << "\t";
 		
 		Output << "\n";
-		
-		}
-	
+	}
 	
 	Output.close();
-	
 }
 
 void Trial::SaveBatteryB(){
@@ -1030,9 +931,6 @@ void Trial::SaveBatteryB(){
 		
 		const int kBufferSize = 256;
 		
-		
-		
-		
 		// Output Rater Information
 		char rater_id[kBufferSize];
 		char rater_race[kBufferSize];
@@ -1061,13 +959,7 @@ void Trial::SaveBatteryB(){
 		Output << rater_orientation << "\t";
 		Output << rater_kids << "\t";
 		
-		
-		
-		
-		
-		
 		// Output Model Information
-		
 		// copy from a CFString into a local c string
 		char model_name[kBufferSize];
 		char model_makeup[kBufferSize];
@@ -1111,12 +1003,9 @@ void Trial::SaveBatteryB(){
 			Output << ratings[j][i] << "\t";
 		
 		Output << "\n";
-		
 	}
 	
-	
 	Output.close();
-	
 }
 
 void Trial::SaveBatteryC(){
@@ -1160,9 +1049,6 @@ void Trial::SaveBatteryC(){
 		
 		const int kBufferSize = 256;
 		
-		
-		
-		
 		// Output Rater Information
 		char rater_id[kBufferSize];
 		char rater_race[kBufferSize];
@@ -1191,13 +1077,7 @@ void Trial::SaveBatteryC(){
 		Output << rater_orientation << "\t";
 		Output << rater_kids << "\t";
 		
-		
-		
-		
-		
-		
 		// Output Model Information
-		
 		// copy from a CFString into a local c string
 		char model_name[kBufferSize];
 		char model_makeup[kBufferSize];
@@ -1235,25 +1115,21 @@ void Trial::SaveBatteryC(){
 		Output << model_smile << "\t";
 		Output << model_mirror << "\t";
 		
-		
 		// Output Ratings
 		for(int i=0; i<ratings[j].size(); i++)
 			Output << ratings[j][i] << "\t";
 		
 		Output << "\n";
-		
 	}
 	
-	
 	Output.close();
-	
 }
 
 void Trial::ResetTrial(){
 	
 	if(groupID != -1){
-	for(int j=0; j<masterGroupList.groupList[groupID].modelList.size(); j++)
-		masterGroupList.groupList[groupID].modelList[j].used = false;
+		for(int j=0; j<masterGroupList.groupList[groupID].modelList.size(); j++)
+			masterGroupList.groupList[groupID].modelList[j].used = false;
 	}
 	
 	trialID = 0;
@@ -1272,8 +1148,6 @@ void Trial::ResetTrial(){
 		ratings[i].clear();
 		
 	ratings.clear();
-	
-	
 }
 
 // Sets currentModelID to new model
@@ -1292,13 +1166,11 @@ bool Trial::nextModel(){
 		if(timeout>20000){
 			return false;
 		}
-		
 	}
 	
 	// Set currentModel to nextMod
 	currentModel = nextMod;
 	masterGroupList.groupList[groupID].modelList[currentModel].used = true;
-	
 	
 	printf("Current Model: %d\n", currentModel);
 	return true;	
@@ -1310,12 +1182,10 @@ bool Trial::isUsed(int nextModel){
 		return false;
 	
 	return true;
-	
 }
 
 
 void Trial::SetBatteryCData(int health, int dare, int attentive, int sociable, int caring, int stable, int hire, CFStringRef ageBox){
-	
 	
 	// set the test int at 50
 	int inAge = 50;
@@ -1327,17 +1197,17 @@ void Trial::SetBatteryCData(int health, int dare, int attentive, int sociable, i
 	// while (test string is not equal to ageBox)
 	while(CFStringCompare(ageBox, testString, 0)!=0){
 		
-	// get result of test string, agebox comparison
-	int compResult = CFStringCompare(ageBox, testString, 0);
+		// get result of test string, agebox comparison
+		int compResult = CFStringCompare(ageBox, testString, 0);
 	
-	// if agebox is less, decrement test string
-	if(compResult < 0)
-		inAge--;
-	else if (compResult > 0)
-		inAge++;
+		// if agebox is less, decrement test string
+		if(compResult < 0)
+			inAge--;
+		else if (compResult > 0)
+			inAge++;
 	
-	// convert inAge to testString
-	testString = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%u"), inAge);
+		// convert inAge to testString
+		testString = CFStringCreateWithFormat(kCFAllocatorDefault, NULL, CFSTR("%u"), inAge);
 	}
 
 	printf("AGE: %d\n", inAge);
@@ -1350,8 +1220,6 @@ void Trial::SetBatteryCData(int health, int dare, int attentive, int sociable, i
 	ratings[currentModel].push_back(stable);
 	ratings[currentModel].push_back(hire);
 	ratings[currentModel].push_back(inAge);
-
-	
 }
 
 

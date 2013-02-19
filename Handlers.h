@@ -10,25 +10,20 @@
 
 pascal void TickBatteryAWindow();
 
-
-pascal OSStatus BatteryCWindowEventHandler (EventHandlerCallRef handlerRef, 
-											EventRef event, void *userData) 
-
-{
+pascal OSStatus BatteryCWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) {
 
 	printf("Recieved event from Battery C Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
+
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
 	
-	// 2 Gets commandID from Menu. Ex: About box had commandID "abtb"
+	// Gets commandID from Menu. Ex: About box had commandID "abtb"
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
-	
+					   sizeof (HICommand), NULL, &command);   
 	
 	printf("Command: %d\n",command.commandID);
-    switch (command.commandID) 
-	{
+	switch (command.commandID) {
 			
 		case 'NXBC': printf("Battery C Next....\n");
 			
@@ -68,57 +63,46 @@ pascal OSStatus BatteryCWindowEventHandler (EventHandlerCallRef handlerRef,
 					SelectWindow(gBatteryCWindow);
 					
 				}
-				
 			}
 			
 			else{
-				
 				// Display notice
 				DialogRef theItem;
 				DialogItemIndex itemIndex;
 				
-				CreateStandardAlert(kAlertNoteAlert, // 1
-									CFSTR("Notice.\n"), // 2
+				CreateStandardAlert(kAlertNoteAlert,  
+									CFSTR("Notice.\n"),  
 									CFSTR("You must choose all ratings to continue.\n"),
-									NULL, &theItem);// 3
+									NULL, &theItem); 
 				
 				RunStandardAlert (theItem, NULL, &itemIndex);
-				
 			}
 			
 			
 		default:
-			break;
-			
+			break;		
 	}
 	
-	
-	
 	result = noErr;
-	
 	return result;
-	
 }
 
-
-pascal OSStatus BatteryACompetenceWindowEventHandler (EventHandlerCallRef handlerRef, 
-													 EventRef event, void *userData) 
-
-{
+pascal OSStatus BatteryACompetenceWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) {
 	
 	printf("Recieved event from A-Competence Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
 	
-	// 2 Gets commandID from Menu. Ex: About box had commandID "abtb"
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
+	
+	// Gets commandID from Menu. Ex: About box had commandID "abtb"
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	
 	printf("Command: %d\n",command.commandID);
-    switch (command.commandID) 
-	{
+	switch (command.commandID) {
+
 		case 'NXA1': printf("Going to Window 2.\n");
 			
 			// Save rating based on currentModel
@@ -137,44 +121,35 @@ pascal OSStatus BatteryACompetenceWindowEventHandler (EventHandlerCallRef handle
 				DialogRef theItem;
 				DialogItemIndex itemIndex;
 				
-				CreateStandardAlert(kAlertNoteAlert, // 1
-									CFSTR("Notice\n"), // 2
+				CreateStandardAlert(kAlertNoteAlert,  
+									CFSTR("Notice\n"),  
 									CFSTR("You must choose a rating to continue.\n"),
-									NULL, &theItem);// 3
+									NULL, &theItem); 
 				
 				RunStandardAlert (theItem, NULL, &itemIndex);
-				
 			}
-				
-			
+
 			result = noErr;
-			
 	}
 	
-	
-	return result;
-	
+	return result;	
 }
 
-
-pascal OSStatus BatteryATrustWindowEventHandler (EventHandlerCallRef handlerRef, 
-													  EventRef event, void *userData) 
-
-{
+pascal OSStatus BatteryATrustWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) {
 	
 	printf("Recieved event from A-Trust Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
+
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
 	
-	// 2 Gets commandID from Menu. Ex: About box had commandID "abtb"
+	// Gets commandID from Menu. Ex: About box had commandID "abtb"
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
-	
+					   sizeof (HICommand), NULL, &command);   
 	
 	printf("Command: %d\n",command.commandID);
-    switch (command.commandID) 
-	{
+	switch (command.commandID) {
+
 		case 'NXA2': printf("Going to Window 3.\n");
 			
 			// Save rating based on currentModel
@@ -192,52 +167,45 @@ pascal OSStatus BatteryATrustWindowEventHandler (EventHandlerCallRef handlerRef,
 				DialogRef theItem;
 				DialogItemIndex itemIndex;
 				
-				CreateStandardAlert(kAlertNoteAlert, // 1
-									CFSTR("Notice\n"), // 2
+				CreateStandardAlert(kAlertNoteAlert,  
+									CFSTR("Notice\n"),  
 									CFSTR("You must choose a rating to continue.\n"),
-									NULL, &theItem);// 3
+									NULL, &theItem); 
 				
 				RunStandardAlert (theItem, NULL, &itemIndex);
 				
 			}
 			
 			result = noErr;
-			
 	}
 	
-	
 	return result;
-	
 }
 
-
-pascal OSStatus BatteryALikeableWindowEventHandler (EventHandlerCallRef handlerRef, 
-													  EventRef event, void *userData) 
-
-{
+pascal OSStatus BatteryALikeableWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) {
 	
 	printf("Recieved event from A-Likeable Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
 	
-	// 2 Gets commandID from Menu. Ex: About box had commandID "abtb"
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
+	
+	// Gets commandID from Menu. Ex: About box had commandID "abtb"
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	printf("Command: %d\n",command.commandID);
-    switch (command.commandID) 
-	{
+	switch (command.commandID) {
+		
 		case 'NXA3': printf("Going to Window 4.\n");
 			
 			// Save rating based on currentModel
 			if(BatteryAHandler3()){
 			
-			// Cycle to window4
-			ShowHide(gBatteryAWindow3, FALSE);
-			ShowHide(gBatteryAWindow4, TRUE);
-			SelectWindow(gBatteryAWindow4);
-				
+				// Cycle to window4
+				ShowHide(gBatteryAWindow3, FALSE);
+				ShowHide(gBatteryAWindow4, TRUE);
+				SelectWindow(gBatteryAWindow4);
 			}
 			
 			else{
@@ -246,46 +214,36 @@ pascal OSStatus BatteryALikeableWindowEventHandler (EventHandlerCallRef handlerR
 				DialogRef theItem;
 				DialogItemIndex itemIndex;
 				
-				CreateStandardAlert(kAlertNoteAlert, // 1
-									CFSTR("Notice.\n"), // 2
+				CreateStandardAlert(kAlertNoteAlert,  
+									CFSTR("Notice.\n"),  
 									CFSTR("You must choose a rating to continue.\n"),
-									NULL, &theItem);// 3
+									NULL, &theItem); 
 				
 				RunStandardAlert (theItem, NULL, &itemIndex);
-				
 			}
 			
-			
 			result = noErr;
-			
 	}
 	
-	
 	return result;
-	
 }
 
-
-
-pascal OSStatus BatteryAAttractivenessWindowEventHandler (EventHandlerCallRef handlerRef, 
-													  EventRef event, void *userData) 
-
-{
-	
+pascal OSStatus BatteryAAttractivenessWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) {
 	
 	printf("Recieved event from A-Attractive Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
 	
-	// 2 Gets commandID from Menu. Ex: About box had commandID "abtb"
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
+	
+	// Gets commandID from Menu. Ex: About box had commandID "abtb"
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	
 	printf("Command: %d\n",command.commandID);
-    switch (command.commandID) 
-	{
+	switch (command.commandID) {
+		
 		case 'NXA4': printf("Thinking About Continuing...\n");
 			
 			// Save results in ratings
@@ -307,8 +265,7 @@ pascal OSStatus BatteryAAttractivenessWindowEventHandler (EventHandlerCallRef ha
 					
 					// Open Survey Window
 					ShowHide(gSurveyWindow, TRUE);
-					SelectWindow(gSurveyWindow);
-					
+					SelectWindow(gSurveyWindow);	
 				}
 				
 				// If a new model was found...
@@ -333,9 +290,7 @@ pascal OSStatus BatteryAAttractivenessWindowEventHandler (EventHandlerCallRef ha
 						ShowHide(gBatteryAWindow1,TRUE);
 						SelectWindow(gBatteryAWindow1);
 					}
-					
 				}
-				
 			}
 			
 			else{
@@ -344,43 +299,38 @@ pascal OSStatus BatteryAAttractivenessWindowEventHandler (EventHandlerCallRef ha
 				DialogRef theItem;
 				DialogItemIndex itemIndex;
 				
-				CreateStandardAlert(kAlertNoteAlert, // 1
-									CFSTR("Notice.\n"), // 2
+				CreateStandardAlert(kAlertNoteAlert,  
+									CFSTR("Notice.\n"),  
 									CFSTR("You must choose a rating to continue.\n"),
-									NULL, &theItem);// 3
+									NULL, &theItem); 
 				
 				RunStandardAlert (theItem, NULL, &itemIndex);
-				
 			}
 			
-			
 			result = noErr;
-			
 	}
 	
 	return result;
-	
 }
 
 // Main Window (+Menu) Event Handler
 // Handles events from the Main Window & Menu
-pascal OSStatus MainWindowEventHandler (EventHandlerCallRef handlerRef, 
-										EventRef event, void *userData) 
-{ 
+pascal OSStatus MainWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) { 
 	
 	printf("Recieved event from Main Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
 	
-	// 2 Gets commandID from Menu. Ex: About box had commandID "abtb"
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
+	
+	// Gets commandID from Menu. Ex: About box had commandID "abtb"
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	// switch handles every possible commandID (in this case, Menu item)
 	printf("Command: %d\n",command.commandID);
-    switch (command.commandID) 
-	{
+    	switch (command.commandID) {
+		
 		case StartTrial1: printf("Beginning Trial.\n");
 			// Init Group List
 			ClearTrialGroupListDataBrowser();
@@ -411,90 +361,87 @@ pascal OSStatus MainWindowEventHandler (EventHandlerCallRef handlerRef,
 	
 		default: break;
 	}
+
     return result; 
 }
 
 // Model List Window Event Handler
 // Handles events from the Model List Window
-pascal OSStatus ModelListWindowEventHandler (EventHandlerCallRef handlerRef, 
-										EventRef event, void *userData) 
-{ 
+pascal OSStatus ModelListWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) { 
 	
 	printf("Recieved event from Model List Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
-	
-		// 2 Gets commandID of event.
-		GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-						   sizeof (HICommand), NULL, &command); // 2 
-		
-		// switch handles every possible commandID
-		printf("Command: %d\n",command.commandID);
-		switch (command.commandID) 
-		{
-			case AddModelToList: printf("Adding model to list.\n");
-				
-				ShowHide(window3, TRUE);
-				SelectWindow (window3);
-				result = noErr;
-				break;
-				
-			case ViewModel: printf("Viewing Model.\n");
-				
-				if(ViewModelCommandHandler()){
-					ShowHide(window5, TRUE);
-					SelectWindow (window5);
-				}
-				result = noErr;
-				break;
-				
-				
-			case DeleteModelFromList: printf("Removing model from list.\n");
-				if(DeleteModelCommandHandler()){
-					ClearModelDataBrowser();
-					InitializeModelDataBrowser ();
-					ClearModelGroupDataBrowser();
-					InitializeModelGroupDataBrowser();
-					masterModelList.SaveModels();
-				}
-				result = noErr;
-				break;
-				
-			case FinishedWithWindow: printf("Hiding Window.\n");
-				ShowHide(window2, FALSE);
-				ShowHide(window, TRUE);
-				SelectWindow (window);  
-				result = noErr;
-				break;
-				
-				
-				
-			default: break;
-		}
-		
-    return result; 
-} 
 
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
+	
+	// Gets commandID of event.
+	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
+						   sizeof (HICommand), NULL, &command);   
+		
+	// switch handles every possible commandID
+	printf("Command: %d\n",command.commandID);
+	switch (command.commandID) {
+
+		case AddModelToList: printf("Adding model to list.\n");
+				
+			ShowHide(window3, TRUE);
+			SelectWindow (window3);
+			result = noErr;
+			break;
+				
+		case ViewModel: printf("Viewing Model.\n");
+				
+			if(ViewModelCommandHandler()){
+				ShowHide(window5, TRUE);
+				SelectWindow (window5);
+			}
+
+			result = noErr;
+			break;
+				
+		case DeleteModelFromList: printf("Removing model from list.\n");
+			if(DeleteModelCommandHandler()){
+				ClearModelDataBrowser();
+				InitializeModelDataBrowser ();
+				ClearModelGroupDataBrowser();
+				InitializeModelGroupDataBrowser();
+				masterModelList.SaveModels();
+			}
+
+			result = noErr;
+			break;
+				
+		case FinishedWithWindow: printf("Hiding Window.\n");
+			ShowHide(window2, FALSE);
+			ShowHide(window, TRUE);
+			SelectWindow (window);  
+			result = noErr;
+			break;
+					
+		default: break;
+	}
+		
+	return result; 
+} 
 
 // Model List Window State Change Event Handler
 // Handles Window Close Event from the Model List Window
-pascal OSStatus ModelListWindowCloseEventHandler (EventHandlerCallRef handlerRef, 
-											 EventRef event, void *userData) 
-{ 
+pascal OSStatus ModelListWindowCloseEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) { 
 	
 	printf("Recieved window close event from Model List Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
 	UInt32 eventKind;
 	
 	// Returns the kind of event
-    eventKind = GetEventKind (event);              
+	eventKind = GetEventKind (event);              
 	
 	// If event is window close, then hide window
-    if (eventKind == kEventWindowClose)                
-	{ 
+	if (eventKind == kEventWindowClose){ 
+		
 		printf("Hiding Window.\n");
+
 		// Hides window
 		ShowHide ( (WindowRef) userData, FALSE);              
 		
@@ -511,23 +458,23 @@ pascal OSStatus ModelListWindowCloseEventHandler (EventHandlerCallRef handlerRef
 
 // Add Model Window Event Handler
 // Handles events from the Add Model Window
-pascal OSStatus AddModelWindowEventHandler (EventHandlerCallRef handlerRef, 
-											 EventRef event, void *userData) 
-{ 
+pascal OSStatus AddModelWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) { 
 	
 	printf("Recieved event from Add Model Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
+
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
 	
-	// 2 Gets commandID of event.
+	// Gets commandID of event.
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	// switch handles every possible commandID
 	printf("Command: %d\n",command.commandID);
-	switch (command.commandID) 
-	{
+
+	switch (command.commandID) {
+		
 		case ConfirmAddModel: printf("Adding model.\n");
 			if (! AddModelCommandHandler())
 				ShowHide(window4, TRUE);
@@ -551,8 +498,6 @@ pascal OSStatus AddModelWindowEventHandler (EventHandlerCallRef handlerRef,
 			result = noErr;
 			break;
 			
-			
-			
 		default: break;
 	}
 	
@@ -561,21 +506,20 @@ pascal OSStatus AddModelWindowEventHandler (EventHandlerCallRef handlerRef,
 
 // Add Model Window State Change Event Handler
 // Handles Window Close Event from the Add Model Window
-pascal OSStatus AddModelWindowCloseEventHandler (EventHandlerCallRef handlerRef, 
-												  EventRef event, void *userData) 
-{ 
+pascal OSStatus AddModelWindowCloseEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) { 
 	
 	printf("Recieved window close event from Add Model Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
+	
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
 	UInt32 eventKind;
 	
 	// Returns the kind of event
-    eventKind = GetEventKind (event);              
+	eventKind = GetEventKind (event);              
 	
 	// If event is window close, then hide window
-    if (eventKind == kEventWindowClose)                
-	{ 
+	if (eventKind == kEventWindowClose){ 
+		
 		printf("Hiding Window.\n");
 		
 		// Reset Fields
@@ -594,22 +538,21 @@ pascal OSStatus AddModelWindowCloseEventHandler (EventHandlerCallRef handlerRef,
 	return result;
 }
 
-pascal OSStatus SurveyWindowEventHandler (EventHandlerCallRef handlerRef, 
-												 EventRef event, void *userData) 
-{ 
+pascal OSStatus SurveyWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) { 
 	
 	printf("Recieved event from Survey Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
+
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
 	
-	// 2 Gets commandID from Menu. Ex: About box had commandID "abtb"
+	// Gets commandID from Menu. Ex: About box had commandID "abtb"
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	// switch handles every possible commandID (in this case, Menu item)
 	printf("Command: %d\n",command.commandID);
-    switch (command.commandID) {
+	switch (command.commandID) {
 			
 		case CloseSurvey: printf("Done with Survey.\n");
 			
@@ -635,25 +578,23 @@ pascal OSStatus SurveyWindowEventHandler (EventHandlerCallRef handlerRef,
 				// Reset trial
 				currentTrial.ResetTrial();
 				
-				
 				// Display notice
 				DialogRef theItem;
 				DialogItemIndex itemIndex;
 				
-				CreateStandardAlert(kAlertNoteAlert, // 1
-									CFSTR("Thank you.\n"), // 2
+				CreateStandardAlert(kAlertNoteAlert,  
+									CFSTR("Thank you.\n"),  
 									CFSTR("This concludes the trial.\n"),
-									NULL, &theItem);// 3
+									NULL, &theItem); 
 				
 				RunStandardAlert (theItem, NULL, &itemIndex);
 				
 				// Hide Survey Window
 				ShowHide(gSurveyWindow, FALSE);
 					
-					// Open main window
-					ShowHide(window, TRUE);
-					SelectWindow(window);
-				
+				// Open main window
+				ShowHide(window, TRUE);
+				SelectWindow(window);
 			}
 			
 			else{
@@ -662,58 +603,42 @@ pascal OSStatus SurveyWindowEventHandler (EventHandlerCallRef handlerRef,
 				DialogRef theItem;
 				DialogItemIndex itemIndex;
 				
-				CreateStandardAlert(kAlertNoteAlert, // 1
-									CFSTR("Notice\n"), // 2
+				CreateStandardAlert(kAlertNoteAlert,  
+									CFSTR("Notice\n"),  
 									CFSTR("Please complete the survey to continue.\n"),
-									NULL, &theItem);// 3
+									NULL, &theItem); 
 				
 				RunStandardAlert (theItem, NULL, &itemIndex);
 				
 			}
 			
 			result = noErr;
-			
 			break;
 			
-		default: break;
-			
+		default: break;	
 	}
-	
-	
-	
-	// Get input from items, store in user record
-	// Save responses
-	// Print trial
-	// Reset battery A dialog
-	// Reset Trial
-	// Display a message that trial is over
-	// Open main window
-	
 
 	return result;
-	
 }
 
 
 // Add Model Error Alert Window Event Handler
 // Handles events from the Add Model Error Alert Window
-pascal OSStatus AddErrorWindowEventHandler (EventHandlerCallRef handlerRef, 
-											EventRef event, void *userData) 
-{ 
+pascal OSStatus AddErrorWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) { 
 	
 	printf("Recieved event from Add Error Alert\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
 	
-	// 2 Gets commandID of event.
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
+	
+	// Gets commandID of event.
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	// switch handles every possible commandID
 	printf("Command: %d\n",command.commandID);
-	switch (command.commandID) 
-	{
+	switch (command.commandID) {
 		case ClearAlert: printf("Clearing Dialog\n");
 			// Reset Fields
 			resetAddModelDialog();
@@ -722,29 +647,26 @@ pascal OSStatus AddErrorWindowEventHandler (EventHandlerCallRef handlerRef,
 			result = noErr;
 			break;
 			
-			
 		default: break;
 	}
 	
     return result; 
 } 
 
-pascal OSStatus ViewModelWindowEventHandler(EventHandlerCallRef handlerRef, 
-											EventRef event, void *userData) 
-{
+pascal OSStatus ViewModelWindowEventHandler(EventHandlerCallRef handlerRef, EventRef event, void *userData) {
+
 	printf("Recieved event from View Model Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
 	
-	// 2 Gets commandID from Menu. Ex: About box had commandID "abtb"
+	// Gets commandID from Menu. Ex: About box had commandID "abtb"
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	// switch handles every possible commandID (in this case, Menu item)
 	printf("Command: %d\n",command.commandID);
-    switch (command.commandID) 
-	{
+	switch (command.commandID) {
 		case CloseViewModel: printf("Closing Window.\n");
 			ShowHide(window5, FALSE);
 			ShowHide(window2, TRUE);
@@ -754,27 +676,25 @@ pascal OSStatus ViewModelWindowEventHandler(EventHandlerCallRef handlerRef,
 			
 		default: break;
 	} 
-    return result; 
-	
 
+    return result; 
 }
 
-pascal OSStatus GroupListWindowEventHandler(EventHandlerCallRef handlerRef, 
-											EventRef event, void *userData) 
-{
+pascal OSStatus GroupListWindowEventHandler(EventHandlerCallRef handlerRef, EventRef event, void *userData) {
+
 	printf("Recieved event from Group List Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
+
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
 	
-	// 2 Gets commandID of event.
+	// Gets commandID of event.
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	// switch handles every possible commandID
 	printf("Command: %d\n",command.commandID);
-	switch (command.commandID) 
-	{
+	switch (command.commandID) {
 		case AddGrouptoList: printf("Adding group to list.\n");
 			
 			ShowHide(gAddGroupWindow, TRUE);
@@ -796,23 +716,20 @@ pascal OSStatus GroupListWindowEventHandler(EventHandlerCallRef handlerRef,
 				if(groupIndex != -1){
 					printf("INDEX IS %d\n", groupIndex);
 				
-				ClearModelGroupDataBrowser();
-				InitializeModelGroupDataBrowser();
+					ClearModelGroupDataBrowser();
+					InitializeModelGroupDataBrowser();
 				
-				ClearGroupMemberDataBrowser();
-				InitializeGroupMemberDataBrowser(groupIndex);
+					ClearGroupMemberDataBrowser();
+					InitializeGroupMemberDataBrowser(groupIndex);
 				
-				// init both lists
-				ShowHide(gEditGroupWindow, TRUE);
-				SelectWindow (gEditGroupWindow);
-					
-					
+					// init both lists
+					ShowHide(gEditGroupWindow, TRUE);
+					SelectWindow (gEditGroupWindow);
 				}
 			}
 			
 			result = noErr;
 			break;
-			
 			
 		case DeleteGroupfromList: printf("Removing group from list.\n");
 			if(DeleteGroupCommandHandler()){
@@ -820,6 +737,7 @@ pascal OSStatus GroupListWindowEventHandler(EventHandlerCallRef handlerRef,
 				InitializeGroupListDataBrowser ();
 				masterGroupList.SaveGroups();
 			}
+
 			result = noErr;
 			break;
 			
@@ -830,32 +748,28 @@ pascal OSStatus GroupListWindowEventHandler(EventHandlerCallRef handlerRef,
 			result = noErr;
 			break;
 			
-			
-			
 		default: break;
 	}
 	
-    return result;
-	
+    return result;	
 }
 
 // Group List Window State Change Event Handler
 // Handles Window Close Event from the Group List Window
-pascal OSStatus GroupListWindowCloseEventHandler (EventHandlerCallRef handlerRef, 
-												 EventRef event, void *userData) 
-{ 
+pascal OSStatus GroupListWindowCloseEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) { 
 	
 	printf("Recieved window close event from Group List Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
+
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
 	UInt32 eventKind;
 	
 	// Returns the kind of event
-    eventKind = GetEventKind (event);              
+	eventKind = GetEventKind (event);              
 	
 	// If event is window close, then hide window
-    if (eventKind == kEventWindowClose)                
-	{ 
+	if (eventKind == kEventWindowClose){ 
+
 		printf("Hiding Window.\n");
 		
 		// Reset Fields
@@ -877,22 +791,21 @@ pascal OSStatus GroupListWindowCloseEventHandler (EventHandlerCallRef handlerRef
 	return result;
 }
 
-pascal OSStatus AddGroupWindowEventHandler(EventHandlerCallRef handlerRef, 
-											EventRef event, void *userData) 
-{
-	printf("Recieved event from Add Group Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
+pascal OSStatus AddGroupWindowEventHandler(EventHandlerCallRef handlerRef, EventRef event, void *userData) {
 	
-	// 2 Gets commandID of event.
+	printf("Recieved event from Add Group Window\n");
+
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
+	
+	// Gets commandID of event.
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	// switch handles every possible commandID
 	printf("Command: %d\n",command.commandID);
-	switch (command.commandID) 
-	{
+	switch (command.commandID) {
 		case ConfirmAddGroup: printf("Adding group to list.\n");
 			
 			if(AddGroupCommandHandler()){
@@ -913,31 +826,27 @@ pascal OSStatus AddGroupWindowEventHandler(EventHandlerCallRef handlerRef,
 			result = noErr;
 			break;
 			
-			
-			
 		default: printf("default.\n");break;
 	}
 	
     return result;
-	
 }
 
-pascal OSStatus EditGroupWindowEventHandler(EventHandlerCallRef handlerRef, 
-										   EventRef event, void *userData) 
-{
-	printf("Recieved event from Edit Group Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
+pascal OSStatus EditGroupWindowEventHandler(EventHandlerCallRef handlerRef, EventRef event, void *userData) {
 	
-	// 2 Gets commandID of event.
+	printf("Recieved event from Edit Group Window\n");
+
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
+	
+	// Gets commandID of event.
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	// switch handles every possible commandID
 	printf("Command: %d\n",command.commandID);
-	switch (command.commandID) 
-	{
+	switch (command.commandID) {
 		case AddToGroupButton: printf("Adding model to group.\n");
 			
 			if(AddGroupMemberCommandHandler()){
@@ -961,45 +870,37 @@ pascal OSStatus EditGroupWindowEventHandler(EventHandlerCallRef handlerRef,
 			break;
 			
 		case DoneWithEditGroup: printf("Closing edit group window.\n");
+
 			ShowHide(gEditGroupWindow, FALSE);
 			SelectWindow(gGroupListWindow);
-			
 			result = noErr;
 			break;
-			
-			// Import & Export group list = done.
-			
-			
-			
+				
 		default: printf("default.\n");break;
 	}
 	
-    return result;
-	
+	return result;
 }
-
-
 
 // New Trial Window Event Handler
 // Handles events from the New Trial window
-pascal OSStatus NewTrialWindowEventHandler (EventHandlerCallRef handlerRef, 
-										EventRef event, void *userData) 
-{ 
+pascal OSStatus NewTrialWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) { 
+	
 	int runTrial = 0;
 	
 	printf("Recieved event from New Trial Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
 	
-	// 2 Gets commandID from Menu. Ex: About box had commandID "abtb"
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
+	
+	// Gets commandID from Menu. Ex: About box had commandID "abtb"
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	// switch handles every possible commandID (in this case, Menu item)
 	printf("Command: %d\n",command.commandID);
-    switch (command.commandID) 
-	{
+	switch (command.commandID) {
 		case BeginTrial: printf("Beginning New Trial.\n");
 			
 			runTrial = BeginNewTrialCommandHandler();
@@ -1038,7 +939,6 @@ pascal OSStatus NewTrialWindowEventHandler (EventHandlerCallRef handlerRef,
 					ShowHide(gBatteryAWindow1, TRUE);
 					SelectWindow(gBatteryAWindow1);
 				}				
-				
 			}
 			
 			else if(runTrial == 3){
@@ -1057,7 +957,6 @@ pascal OSStatus NewTrialWindowEventHandler (EventHandlerCallRef handlerRef,
 					SelectWindow(gBatteryCWindow);
 					
 				}
-				
 			}
 			
 			result = noErr;
@@ -1072,36 +971,36 @@ pascal OSStatus NewTrialWindowEventHandler (EventHandlerCallRef handlerRef,
 	
 		default: break;
 	}
+
     return result; 
 }
 
 // Battery A Window Event Handler
 // Handles events from the Battery A window
-pascal OSStatus BatteryAWindowEventHandler (EventHandlerCallRef handlerRef, 
-											EventRef event, void *userData) 
-{
+pascal OSStatus BatteryAWindowEventHandler (EventHandlerCallRef handlerRef, EventRef event, void *userData) {
+
 	printf("Recieved event from Battery A Window\n");
-	// 1 sets result to err so Carbon Event Manager will take over if event not handled
-    OSStatus result = eventNotHandledErr;         // 1 
-    HICommand command;
 	
-	// 2 Gets commandID from Menu. Ex: About box had commandID "abtb"
+	// sets result to err so Carbon Event Manager will take over if event not handled
+	OSStatus result = eventNotHandledErr;           
+	HICommand command;
+	
+	// Gets commandID from Menu. Ex: About box had commandID "abtb"
 	GetEventParameter (event, kEventParamDirectObject, typeHICommand, NULL, 
-					   sizeof (HICommand), NULL, &command); // 2 
+					   sizeof (HICommand), NULL, &command);   
 	
 	// switch handles every possible commandID (in this case, Menu item)
 	printf("Command: %d\n",command.commandID);
-    switch (command.commandID) 
-	{
+	switch (command.commandID){
 			
 		default: break;
 	}
 	
 	result = noErr;
-    return result; 
+	return result; 
 }
 
-pascal void TickBatteryAWindow(){
+pascal void TickBatteryAWindow() {
 	
 	// show target
 	ShowHide(gTargetAlertWindow,TRUE);
@@ -1124,7 +1023,6 @@ pascal void TickBatteryAWindow(){
 	
 	// Hide battery b picture window
 	ShowHide(gBatteryAWindow, FALSE);
-	
 }
 
 
